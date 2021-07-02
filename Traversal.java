@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 class TreeNode {
     public char val;
@@ -233,6 +230,66 @@ public class Traversal {
             }
         }
     }
+    //力扣二叉树分层遍历
+    static List<List<Character>> result=new ArrayList<>();
+    public List<List<Character>> levelOrder(TreeNode root) {
+        if(root==null) {
+            return result;
+        }
+        helper(root,0);
+        return result;
+    }
+
+    private void helper(TreeNode root, int index) {
+        if(index==result.size()) {
+            result.add(new ArrayList<>());
+        }
+        result.get(index).add(root.val);
+        if(root.left!=null) {
+            helper(root.left,index+1);
+        }
+        if(root.right!=null) {
+            helper(root.right,index+1);
+        }
+    }
+    //判断一棵树是否为完全二叉树
+    boolean isCompleteTree(TreeNode root) {
+        if(root==null) {
+            return true;
+        }
+        //层序遍历二叉树
+        Queue<TreeNode> queue=new LinkedList<>();
+        queue.offer(root);
+        boolean isSecondStop=false;
+        while (queue.isEmpty()) {
+            TreeNode cur=queue.poll();
+            if(!isSecondStop) {
+                //第一阶段
+                if(cur.left!=null&&cur.right!=null) {
+                    //左右子树都不为空，入队
+                    queue.offer(cur.left);
+                    queue.offer(cur.right);
+                } else if(cur.left==null&&cur.right!=null) {
+                    //左子树为空 右子树不为空肯定不是完全二叉树
+                    return false;
+                } else if(cur.left!=null&&cur.right==null) {
+                    //左子树不为空 右子树为空进入第二阶段
+                    isSecondStop=true;
+                    queue.offer(cur.left);
+                } else {
+                    //左右子树都为空，进入第二阶段
+                    isSecondStop=true;
+                }
+            } else {
+                //第二阶段  要求左右子树都为空
+                if(cur.left!=null||cur.right!=null) {
+                    return false;
+                }
+            }
+        }
+        //整个树遍历完，是完全二叉树
+        return true;
+    }
 
     public static void main(String[] args) {
         Traversal traversal=new Traversal();
@@ -249,6 +306,8 @@ public class Traversal {
         int a=traversal.getLevelSize(root,4);
         System.out.println(a);
         traversal.levelOrderTraversal(root);
+        System.out.println(traversal.levelOrder(root));
+        System.out.println(traversal.isCompleteTree(root));
 
     }
 }

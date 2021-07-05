@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class test {
     //存在重复元素
@@ -54,5 +56,71 @@ public class test {
             //num1中元素比较完，将num2的其余元素放入num1后
             nums1[p--]=nums2[j--];
         }
+    }
+    //两个数组的交集
+    public static int[] intersect(int[] nums1, int[] nums2) {
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        List<Integer> list=new ArrayList<>();
+        int i=0;
+        int j=0;
+        while (i<nums1.length&&j<nums2.length) {
+            if(nums1[i]>nums2[j]) {
+                j++;
+            }else if(nums1[i]<nums2[j]) {
+                i++;
+            }else {
+                list.add(nums1[i]);
+                i++;
+                j++;
+            }
+        }
+        int[] arr=new int[list.size()];
+        for (int k = 0; k < list.size() ; k++) {
+            arr[k]=list.get(k);
+        }
+        return arr;
+    }
+    //买股票的最佳时间
+    //输入：[7,1,5,3,6,4]
+    //输出：5
+    //解释：在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5
+    public static int maxProfit(int[] prices) {
+        /*int min=prices[0];
+        int count=0;
+        for (int i = 0; i <prices.length ; i++) {
+            if(prices[i]<min) {
+                min=prices[i];
+                count=i;
+            }
+        }
+        if(count==prices.length-1) {
+            return 0;
+        }
+        int max=prices[count];
+        for (int i = count; i <prices.length ; i++) {
+            if(prices[i]>max) {
+                max=prices[i];
+            }
+        }
+        int num=max-min;
+        return num;*/
+        int min=prices[0];
+        int max=0;
+        for (int i = 0; i <prices.length ; i++) {
+            if(prices[i]<min) {
+                min=prices[i];
+            }
+            if(prices[i]-min>max) {
+                max=prices[i]-min;
+            }
+        }
+        return max;
+    }
+    public static void main(String[] args) {
+        int[] arr1=new int[] {7,4,5,3,6,1};
+        System.out.println(maxProfit(arr1));
+
+
     }
 }

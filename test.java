@@ -117,6 +117,66 @@ public class test {
         }
         return max;
     }
+    //重塑矩阵
+    //输入:
+    //nums =
+    //[[1,2],
+    // [3,4]]
+    //r = 1, c = 4
+    //输出:
+    //[[1,2,3,4]]
+    public int[][] matrixReshape(int[][] mat, int r, int c) {
+        int m=mat.length;
+        int n=mat[0].length;
+        if(m*n!=r*c) {
+            return mat;
+        }
+      //先存放在一维数组中
+        int[] tmp=new int[r*c];
+        int count=0;
+        for (int i = 0; i <m ; i++) {
+            for (int j = 0; j <n ; j++) {
+                tmp[count]=mat[i][j];
+                count++;
+            }
+        }
+        count=0;
+        //用二维数组接收
+        int[][] arr=new int[r][c];
+        for (int i = 0; i <r ; i++) {
+            for (int j = 0; j <c ; j++) {
+                arr[i][j]=tmp[count];
+                count++;
+            }
+        }
+        return arr;
+    }
+    //杨辉三角
+    public List<List<Integer>> generate(int numRows) {
+        if(numRows==0) {
+            return null;
+        }
+        List<List<Integer>> list=new ArrayList<>();
+        //处理第一行
+        List<Integer> list1=new ArrayList<>();
+        list1.add(1);
+        list.add(list1);
+        for (int i = 1; i <numRows ; i++) {
+            //上一行
+            List<Integer> prev=list.get(i-1);
+            //处理每一行的第一个元素
+            List<Integer> cur=new ArrayList<>();
+            cur.add(1);
+            for (int j = 1; j <i ; j++) {
+                int c=prev.get(j-1)+prev.get(j);
+                cur.add(c);
+            }
+            //处理每一行的最后一个元素
+            cur.add(1);
+            list.add(cur);
+        }
+        return list;
+    }
     public static void main(String[] args) {
         int[] arr1=new int[] {7,4,5,3,6,1};
         System.out.println(maxProfit(arr1));

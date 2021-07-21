@@ -571,12 +571,237 @@ public class Traversal {
         root1.right=mergeTrees(root1.right,root2.right);
         return root1;
     }
+    //最近公共祖先
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root==null) {
+            return null;
+        }
+        //一个树为根节点
+        if(root==p||root==q) {
+            return root;
+        }
+        //递归左右子树遍历
+        TreeNode rootLeft=lowestCommonAncestor(root.left,p,q);
+        TreeNode rootRight=lowestCommonAncestor(root.right,p,q);
+        //左子树右子树都找到公共节点
+        if(rootLeft==null&&rootRight==null) {
+            return null;
+        }
+        //右子树为空，返回左子树中第一次出现的节点
+        if(rootLeft==null) {
+            return rootRight;
+        }
+        //左子树为空，返回右子树中最先出现的节点
+        if(rootRight==null) {
+            return rootLeft;
+        }
+        return root;
+    }
+    //二叉搜索树与双向链表
+    public static TreeNode prev=null;
+    public void ConvertCreat(TreeNode p) {
+        if(p==null) {
+            return;
+        }
+        //中序遍历
+        ConvertCreat(p.left);
+        //打印
+        p.left=prev;
+        if(prev!=null) {
+            prev.right=p;
+        }
+        prev=p;
+        ConvertCreat(p.right);
+
+    }
+    public TreeNode Convert(TreeNode pRootOfTree) {
+        if(pRootOfTree==null) {
+            return null;
+        }
+        //中序遍历
+        ConvertCreat(pRootOfTree);
+        //找双向链表的头结点 即二叉树最左边的节点
+        TreeNode head=pRootOfTree;
+        while(head.left!=null) {
+            head=head.left;
+        }
+        return head;
+    }
+    //根据二叉树创建字符串
+    public void tree2strChild(TreeNode root,StringBuilder str) {
+        if(root==null) {
+            return;
+        }
+        //根节点加入到字符串中
+        str.append(root.val);
+        //左右子树都为空什么都不干  左子树为空加()
+        if(root.left==null) {
+            if(root.right==null) {
+                return;
+            } else {
+                str.append("()");
+            }
+        } else {
+            //递归遍历左子树
+            str.append("(");
+            tree2strChild(root.left,str);
+            str.append(")");
+        }
+        if(root.right==null) {
+               return;
+        } else {
+            //递归遍历右子树
+            str.append("(");
+            tree2strChild(root.right,str);
+            str.append(")");
+        }
+    }
+    public String tree2str(TreeNode root) {
+        if(root==null) {
+            return null;
+        }
+        StringBuilder str=new StringBuilder();
+        tree2strChild(root,str);
+        return str.toString();
+
+    }
+    //二叉树层次遍历
+    public List<List<Character>> levelOrder1(TreeNode root) {
+        if(root==null) {
+            return new ArrayList<List<Character>>();
+        }
+        //先创建一个二维数组
+        List<List<Character>> lise=new ArrayList<>();
+        //用队列来存放元素
+        Queue<TreeNode> queue=new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size=queue.size();
+            //用来存放每一层的元素
+            ArrayList<Character> ret=new ArrayList<>();
+            for (int i = 0; i <size ; i++) {
+                TreeNode t=queue.poll();
+                ret.add(t.val);
+                //递归实现左右子树入队
+                if(t.left!=null) {
+                    queue.offer(t.left);
+                }
+                if(t.right!=null) {
+                    queue.offer(t.right);
+                }
+            }
+            lise.add(ret);
+        }
+        return lise;
+    }
+    //最大宽度
+    public int widthOfBinaryTree(TreeNode root) {
+        if(root==null) {
+            return -1;
+        }
+        int max=0;
+        Queue<TreeNode> queue=new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size=queue.size();
+            ArrayList<Character> list=new ArrayList<>();
+            while (size!=0) {
+                TreeNode tmp=queue.poll();
+                list.add(tmp.val);
+                if(tmp.left!=null) {
+                    queue.offer(tmp.left);
+                }
+                if(tmp.right!=null) {
+                    queue.offer(tmp.right);
+                }
+                size--;
+            }
+            if(max<list.size()) {
+                max=list.size();
+            }
+        }
+        return max;
+    }
+    //构建二叉树
+    /*import java.util.*;
+    class TreeNode {
+        public char val;
+        public TreeNode lefe;
+        public TreeNode right;
+        public TreeNode(char val) {
+            this.val=val;
+        }
+    }
+
+    public class Main {
+        //
+        public static int i=0;
+        //根据先序构建二叉树
+        public static TreeNode createTreeByString(String str) {
+            if (str==null) return null;
+            TreeNode root=null;
+            if(str.charAt(i)!='#') {
+                root=new TreeNode(str.charAt(i));
+                i++;
+                //递归 构建左子树右子树
+                root.lefe=createTreeByString(str);
+                root.right=createTreeByString(str);
+            } else {
+                i++;
+            }
+            return root;
+        }
+        //中序遍历二叉树
+        public static void inorder(TreeNode root) {
+            if(root==null) {
+                return;
+            }
+            inorder(root.lefe);
+            System.out.print(root.val+" ");
+            inorder(root.right);
+        }
+        //输入输出
+        public static void main(String[] args) {
+            Scanner s=new Scanner(System.in);
+            String str=s.nextLine();
+            TreeNode root=createTreeByString(str);
+            inorder(root);
+        }
+    }*/
+    //根据先序中序构造二叉树
+    /*public  int index=0;
+    public TreeNode buildTreeChild(int[] preorder, int[] inorder,int begin,int end) {
+        if(begin>end) {
+            return null;
+        }
+        TreeNode root=new TreeNode(preorder[index]);
+        int rootIndex=find(inorder,begin,end,preorder[index]);
+        index++;
+        root.left=buildTreeChild(preorder,inorder,begin,rootIndex-1);
+        root.right=buildTreeChild(preorder,inorder,rootIndex+1,end);
+        return root;
+    }
+    public int find(int[] inorder,int begin,int end,int key) {
+        for (int i = begin; i <=end ; i++) {
+            if(inorder[i]==key) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        if(preorder==null||inorder==null) return null;
+        TreeNode root=buildTreeChild(preorder,inorder,0,preorder.length-1);
+        return root;
+
+    }*/
     public static void main(String[] args) {
         Traversal traversal=new Traversal();
         TreeNode root=traversal.createTree();
         traversal.preOrderTraversal(root);
         System.out.println();
-        traversal.preOrderTraversal1(root);
+        System.out.println(traversal.widthOfBinaryTree(root));
+       /* traversal.preOrderTraversal1(root);
         System.out.println();
         traversal.inOrderTraversal(root);
         System.out.println();
@@ -593,7 +818,7 @@ public class Traversal {
         System.out.println(a);
         traversal.levelOrderTraversal(root);
         System.out.println(traversal.levelOrder(root));
-        System.out.println(traversal.isCompleteTree(root));
+        System.out.println(traversal.isCompleteTree(root));*/
 
     }
 }

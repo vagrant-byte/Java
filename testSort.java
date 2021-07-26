@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Stack;
 
 public class testSort {
     //直接插入排序
@@ -67,7 +68,7 @@ public class testSort {
     //冒泡排序
     //时间复杂度  最好O(n)   最坏O(n^2)
     //空间复杂度  O(1)
-    //稳定性     不稳定
+    //稳定性     稳定
     public static void bubbleSort(int[] array) {
         //趟数
         for (int i = 0; i <array.length-1 ; i++) {
@@ -148,10 +149,47 @@ public class testSort {
         //返回下一个标志位
         return low;
     }
+    public static void selectPivotMedianOfThree(int[] array,int start,int end,int mid) {
+       //array[mid] <= array[start] <= array[end]
+        if(array[mid]>array[start]) {
+            int tmp=array[mid];
+            array[mid]=array[start];
+            array[start]=tmp;
+        }
+        if(array[start]>array[end]) {
+            int tmp=array[start];
+            array[start]=array[end];
+            array[end]=tmp;
+        }
+    }
+    public static void insertSort1(int[] array,int start,int end) {
+        for (int i = start+1; i <=end ; i++) {
+            int tmp=array[i];
+            int j = i-1;
+            for (; j >=start ; j--) {
+                if(array[j]>tmp) {
+                    array[j+1]=array[j];
+                    array[j]=tmp;
+                } else {
+                    break;
+                }
+            }
+            array[j+1]=tmp;
+        }
+    }
+    //递归实现快排
     public static void quick(int[] array,int start,int end) {
         if(start>=end) {
             return;
         }
+        //优化 当数组长度小于等于100时进行直接插入排序
+        if(end-start+1<=100) {
+            insertSort1(array,start,end);
+            return;
+        }
+        //优化 三数取中法
+        int mid=(start+end)/2;
+        selectPivotMedianOfThree(array,start,end,mid);
         //确定标志位
         int pivot=partition(array,start,end);
         //左边递归
@@ -162,10 +200,88 @@ public class testSort {
     public static void quickSort(int[] array) {
         quick(array,0,array.length-1);
     }
+    //非递归实现快排
+    public static void quickSort1(int[] array) {
+        Stack<Integer> stack=new Stack<>();
+        int start=0;
+        int end=array.length-1;
+        int pivot=partition(array,start,end);
+        //确保左边至少有两个元素
+        if(pivot>start+1) {
+            stack.push(0);
+            stack.push(pivot-1);
+        }
+        if(pivot<end-1) {
+            stack.push(pivot+1);
+            stack.push(end);
+        }
+        while (!stack.empty()) {
+            end=stack.pop();
+            start=stack.pop();
+            partition(array,start,end);
+            if(pivot>start+1) {
+                stack.push(0);
+                stack.push(pivot-1);
+            }
+            if(pivot<end-1) {
+                stack.push(pivot+1);
+                stack.push(end);
+            }
+        }
+    }
+    //归并排序
+    //时间复杂度 O(n*logn)
+    //空间复杂度 O(N)
+    //稳定性    稳定
+    public static void merge(int[] array,int start,int mid,int end) {
+        int s1=start;
+        int e1=mid;
+        int s2=mid+1;
+        int e2=end;
+        int[] tmp=new int[end-start+1];//用来存放新序列
+        int k=0;//记录tmp下标
+        while (s1<=e1&&s2<=e2) {
+            if(array[s1]<=array[s2]) {
+                tmp[k++]=array[s1++];
+            } else {
+                tmp[k++]=array[s2++];
+            }
+        }
+        if(s1<=e1) {
+            tmp[k++]=array[s1++];
+        }
+        if(s2<=e2) {
+            tmp[k++]=array[s2++];
+        }
+        for (int i = 0; i <tmp.length ; i++) {
+            array[i+start]=tmp[i];
+        }
+    }
+    public static void mergeSortInternal(int[] array,int start,int end) {
+        if(start>=end) {
+            return;
+        }
+        int mid=(start+end)/2;
+        mergeSortInternal(array,start,mid);
+        mergeSortInternal(array,mid+1,end);
+        //合并
+        merge(array,start,mid,end);
+
+    }
+    public static void mergeSort1(int[] array) {
+        mergeSortInternal(array, 0,array.length-1);
+    }
 
     public static void main(String[] args) {
-        int[] a={5,4,3,2,1};
-        quickSort(a);
-        System.out.println(Arrays.toString(a));
+        int[] a=new int[10000];
+        for (int i = 0; i <10000 ; i++) {
+            a[i]=i;
+        }
+        long start=System.currentTimeMillis();
+        mergeSort1(a);
+        long end=System.currentTimeMillis();
+        System.out.println(end-start);
+
+       // System.out.println(Arrays.toString(a));
     }
 }

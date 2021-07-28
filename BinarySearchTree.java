@@ -67,7 +67,17 @@ public class BinarySearchTree {
                 parent.right=cur.left;
             }
         } else {
-            
+            Node tp=cur;
+            Node t=cur.right;
+            while (t.left!=null) {
+                tp=t;
+                t=t.left;
+            }
+            if(tp.right==t) {
+                tp.right=t.right;
+            } else {
+                tp.left=t.right;
+            }
         }
     }
     public void removeKey(Node root ,int key) {

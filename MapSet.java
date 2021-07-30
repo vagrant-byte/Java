@@ -1,6 +1,21 @@
 import java.util.*;
 
 public class MapSet {
+    //无重复字符的最长字串
+    public int lengthOfLongestSubstring(String s) {
+        HashMap<Character,Integer> map=new HashMap<>();
+        int slow=0;
+        int max=0;
+        for (int i = 0; i <s.length() ; i++) {
+            if(map.containsKey(s.charAt(i))) {
+                slow=Math.max(slow,map.get(s.charAt(i))+1);
+            }
+            map.put(s.charAt(i),i);
+            max=Math.max(max,i-slow+1);
+        }
+        return max;
+
+    }
     //前k个高频单词
     public List<String> topKFrequent(String[] words, int k) {
         List<String> list=new ArrayList<>();

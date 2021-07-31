@@ -1,6 +1,81 @@
 import java.util.*;
+import java.util.function.BiConsumer;
 
 public class MapSet {
+    //找不同
+    public char findTheDifference(String s, String t) {
+        HashSet<Character> set=new HashSet<>();
+        char[] array=s.concat(t).toCharArray();
+        for (int i = 0; i <array.length ; i++) {
+            if(set.contains(array[i])) {
+                set.remove(array[i]);
+            } else {
+                set.add(array[i]);
+            }
+        }
+        return (char) set.toArray()[0];
+    }
+    //存在重复元素2
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        HashMap<Integer,Integer> map=new HashMap<>();
+        for (int i = 0; i <nums.length ; i++) {
+            if(!map.containsKey(nums[i])) {
+                map.put(nums[i],i);
+            } else {
+                int count=map.get(nums[i]);
+                if(Math.abs(count-i)<=k) {
+                    return true;
+                }
+                map.put(nums[i],count+1);
+            }
+            map.put(nums[i],i);
+        }
+        return false;
+    }
+    //存在重复元素
+    public boolean containsDuplicate(int[] nums) {
+       HashSet<Integer> set=new HashSet<>();
+        for (int n:nums) {
+            set.add(n);
+        }
+        if(set.size()<nums.length) {
+            return true;
+        }
+        return false;
+    }
+    //斐波那契数列最小步
+    public static void main4(String[] args) {
+        Scanner scanner=new Scanner(System.in);
+        int num=scanner.nextInt();
+        int i=0;
+        while(fib(i)<num) {
+            i++;
+        }
+        if(fib(i)-num>num-fib(i-1)) {
+            System.out.println(num-fib(i-1));
+        } else{
+            System.out.println(fib(i)-num);
+        }
+    }
+    public static int fib(int n) {
+        if(n==0) {
+            return 0;
+        }
+        if(n==1) {
+            return 1;
+        }
+        return fib(n-1)+fib(n-2);
+    }
+    public static void main3(String[] args) {
+        Scanner scanner=new Scanner(System.in);
+        HashSet<String> set=new HashSet<>();
+        while (scanner.hasNext()) {
+            String s=scanner.nextLine();
+            set.add(s);
+        }
+        int count=set.size();
+        System.out.println(count);
+    }
     //无重复字符的最长字串
     public int lengthOfLongestSubstring(String s) {
         HashMap<Character,Integer> map=new HashMap<>();
@@ -14,7 +89,6 @@ public class MapSet {
             max=Math.max(max,i-slow+1);
         }
         return max;
-
     }
     //前k个高频单词
     public List<String> topKFrequent(String[] words, int k) {

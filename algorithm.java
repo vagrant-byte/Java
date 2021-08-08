@@ -1,5 +1,7 @@
 package 算法基础;
 
+import java.util.Arrays;
+
 public class algorithm {
     //二分查找
     public int search(int[] nums, int target) {
@@ -40,4 +42,49 @@ public class algorithm {
         }
         return left;
     }*/
+    //有序数组的平方 暴力求解
+    public int[] sortedSquares(int[] nums) {
+        for (int i = 0; i <nums.length ; i++) {
+            nums[i]=nums[i]*nums[i];
+        }
+        Arrays.sort(nums);
+
+        return nums;
+
+    }
+    //有序数组的平方 双指针
+    public int[] sortedSquares1(int[] nums) {
+        int le=0;
+        int ri=nums.length-1;
+        int [] arr=new int[nums.length];
+        int j=nums.length-1;
+        while (le<=ri) {
+            if(nums[le]*nums[le]<nums[ri]*nums[ri]) {
+                arr[j]=nums[ri]*nums[ri];
+                j--;
+                ri--;
+            } else {
+                arr[j]=nums[le]*nums[le];
+                j--;
+                le++;
+            }
+        }
+        return arr;
+    }
+    //旋转数组  前一部分旋转 后一部分旋转 整体旋转
+    public void swap(int[] a,int be,int ed) {
+        while (be<ed) {
+            int tmp=a[be];
+            a[be]=a[ed];
+            a[ed]=tmp;
+            be++;
+            ed--;
+        }
+    }
+    public void rotate(int[] nums, int k) {
+            k=k%nums.length;
+            swap(nums,0,nums.length-1);
+            swap(nums,0,k-1);
+            swap(nums,k,nums.length-1);
+    }
 }

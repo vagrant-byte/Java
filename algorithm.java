@@ -87,4 +87,33 @@ public class algorithm {
             swap(nums,0,k-1);
             swap(nums,k,nums.length-1);
     }
+    //移动零
+    public void moveZeroes(int[] nums) {
+        int index=0;
+        for (int i = 0; i <nums.length ; i++) {
+            if(nums[i]!=0) {
+                nums[index]=nums[i];
+                index++;
+            }
+        }
+        for (int i = index; i <nums.length ; i++) {
+            nums[i]=0;
+        }
+    }
+    //两数之和
+    public int[] twoSum(int[] numbers, int target) {
+        int left=0;
+        int right=numbers.length-1;
+        while (left<right) {
+            if(numbers[left]+numbers[right]==target) {
+                return new int[] {left+1,right+1};
+            } else if(numbers[left]+numbers[right]<target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return null;
+
+    }
 }

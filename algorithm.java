@@ -114,6 +114,29 @@ public class algorithm {
             }
         }
         return null;
-
+    }
+    //反转字符串
+    public void reverseString(char[] s) {
+        int left=0;
+        int right=s.length-1;
+        while (left<right) {
+            char tmp=s[left];
+            s[left]=s[right];
+            s[right]=tmp;
+            left++;
+            right--;
+        }
+    }
+    //反转字符串中单词
+    public String reverseWords(String s) {
+        String[] str=s.split(" ");
+        StringBuffer stringBuffer=new StringBuffer();
+        for (String s1:str) {
+            char[] chars=s1.toCharArray();
+            reverseString(chars);
+            stringBuffer.append(String.valueOf(chars)+" ");
+        }
+        String s1=stringBuffer.toString();
+        return s1.substring(0,s1.length()-1);
     }
 }

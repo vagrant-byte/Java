@@ -1,6 +1,7 @@
 package 算法基础;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class algorithm {
     //二分查找
@@ -138,5 +139,24 @@ public class algorithm {
         }
         String s1=stringBuffer.toString();
         return s1.substring(0,s1.length()-1);
+    }
+    //无重复字符串的最长字串
+    public int lengthOfLongestSubstring(String s) {
+        int slow=0;
+        int max=0;
+        HashMap<Character,Integer> map=new HashMap<>();
+        for (int i = 0; i <s.length() ; i++) {
+            if(map.containsKey(s.charAt(i))) {
+                slow=Math.max(slow,map.get(s.charAt(i))+1);
+
+            }
+            map.put(s.charAt(i),i);
+            max=Math.max(max,i-slow+1);
+        }
+        return max;
+    }
+    //字符串的排列
+    public boolean checkInclusion(String s1, String s2) {
+
     }
 }

@@ -1,5 +1,9 @@
 package 寒假作业;
 
+import java.util.Arrays;
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 public class HomeWork {
     //在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个
     //函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。时间复杂度小于O(n) ,空间复杂度O(1).
@@ -84,6 +88,33 @@ public class HomeWork {
             System.out.println(a[i]+" ");
         }
     }
+    //求一个数组中前k个最小的数字
+    public static int[] minKArray(int[] array,int k) {
+        if(k==0||array.length==0) {
+            return new int[0];
+        }
+        Queue<Integer> queue=new PriorityQueue<>((v1,v2)->v2-v1);
+        for (int num:array) {
+            if(queue.size()<k) {
+                queue.offer(num);
+            } else if(queue.peek()>num) {
+                queue.poll();
+                queue.offer(num);
+            }
+        }
+        int[] res=new int[queue.size()];
+        int index=0;
+        for (int num:queue) {
+            res[index++]=num;
+        }
+        return res;
+    }
+    //找出无序数组当中，出现次数超过数组长度一半的数字
+    public static int selectHalfNum(int[] array) {
+        Arrays.sort(array);
+        int index=array.length/2;
+        return array[index];
+    }
     public static void main1(String[] args) {
         int[][] array={{1,2,3,4},{5,6,7,8},{9,10,12,11},{13,14,15,16}};
         int n=19;
@@ -91,11 +122,20 @@ public class HomeWork {
     }
 
     public static void main(String[] args) {
-        int[] array={1,2,3,4,5,7,7,8};
-        int[] a=sum(array, 8);
-        for (int i = 0; i <a.length ; i++) {
-            System.out.println(a[i]);
+        int[] array={1,2,3,2,2};
+        System.out.println(selectHalfNum(array));
+
+    }
+    public static boolean foo(char c) {
+        System.out.print(c);
+        return true;
+    }
+        public static void main3( String[] args ) {
+            int i = 0;
+            for ( foo('A'); foo('B') && (i < 2); foo('C')) {
+                i++ ;
+                foo('D');
+            }
         }
     }
 
-}

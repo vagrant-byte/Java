@@ -155,8 +155,51 @@ public class algorithm {
         }
         return max;
     }
-    //字符串的排列
-    public boolean checkInclusion(String s1, String s2) {
-
+    //图像渲染
+    public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
+        if (image[sr][sc] == newColor) {
+            return image;
+        }
+        DFS(image, sr, sc, image[sr][sc], newColor);
+        return image;
     }
+
+    public void DFS(int[][] image, int i, int j, int oldColor, int newColor) {
+        if (i < 0 || i >= image.length || j < 0 || j >= image[0].length) {
+            return;
+        }
+        if (image[i][j] != oldColor) {
+            return;
+        }
+        image[i][j] = newColor;
+        DFS(image, i + 1, j, oldColor, newColor);
+        DFS(image, i, j + 1, oldColor, newColor);
+        DFS(image, i - 1, j, oldColor, newColor);
+        DFS(image, i, j - 1, oldColor, newColor);
+    }
+    //岛屿最大面积
+    public int maxAreaOfIsland(int[][] grid) {
+        int max=0;
+        for(int i=0;i<grid.length;i++) {
+            for(int j=0;j<grid[0].length;j++) {
+                if(grid[i][j]==1) {
+                    max=Math.max(def(grid,i,j),max);
+                }
+            }
+        }
+        return max;
+    }
+    public int def(int[][] grid,int i,int j) {
+        if(i<0||i>=grid.length||j<0||j>=grid[0].length||grid[i][j]==0) {
+            return 0;
+        }
+        int count=1;
+        grid[i][j]=0;
+        count+=def(grid,i+1,j);
+        count+=def(grid,i-1,j);
+        count+=def(grid,i,j+1);
+        count+=def(grid,i,j-1);
+        return count;
+    }
+
 }

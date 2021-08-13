@@ -1,8 +1,6 @@
 package 寒假作业;
 
-import java.util.Arrays;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class HomeWork {
     //在一个二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个
@@ -115,15 +113,59 @@ public class HomeWork {
         int index=array.length/2;
         return array[index];
     }
+    //输入一个整型数组，数组里有正数也有负数。数组中一个或连续的多个整数组成一个子数组。求所有子数组的和的
+    //最大值。要求时间复杂度为O(n)
+    public static int findMax(int[] array) {
+        if(array==null||array.length<1) {
+            System.out.println("数组为空");
+        }
+        int max=Integer.MIN_VALUE;
+        int tmpMax=0;
+        for (int i:array) {
+            if(tmpMax<=0) {
+                tmpMax=i;
+            } else {
+                tmpMax+=i;
+            }
+            if(max<tmpMax) {
+                max=tmpMax;
+            }
+        }
+        return max;
+    }
+    //一个整型数组里除了两个数字之外，其他的数字都出现了两次。请写程序找出这两个只出现一次的数字
+    public static void findFirst(int[] array) {
+        HashMap<Integer,Integer> map=new HashMap<>();
+        for (int i = 0; i <array.length ; i++) {
+            if(map.containsKey(array[i])) {
+                int j=map.get(array[i]);
+                map.put(array[i],j+1);
+            } else {
+                map.put(array[i],1);
+            }
+        }
+        ArrayList<Integer> arrayList=new ArrayList<>();
+        for (int i = 0; i <array.length ; i++) {
+            if(map.get(array[i])==1) {
+                arrayList.add(array[i]);
+                System.out.print(array[i]+" ");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] array={1,3,5,7,1,3,5,9};
+        findFirst(array);
+    }
     public static void main1(String[] args) {
         int[][] array={{1,2,3,4},{5,6,7,8},{9,10,12,11},{13,14,15,16}};
         int n=19;
         System.out.println(find(array, n));
     }
 
-    public static void main(String[] args) {
-        int[] array={1,2,3,2,2};
-        System.out.println(selectHalfNum(array));
+    public static void main4(String[] args) {
+        int[] array={1,-2,3,10,-4,7,2,-5};
+        System.out.println(findMax(array));
 
     }
     public static boolean foo(char c) {
@@ -137,5 +179,15 @@ public class HomeWork {
                 foo('D');
             }
         }
+    public static void print(){
+        System.out.println("MTDP");
     }
+    public static void main5(String[] args) {
+        try{
+            ((HomeWork)null).print();
+        }catch(NullPointerException e){
+            System.out.println("NullPointerException");
+        }
+    }
+}
 

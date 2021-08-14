@@ -201,5 +201,37 @@ public class algorithm {
         count+=def(grid,i,j-1);
         return count;
     }
+    //合并两个二叉树
+    /*public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
+        if(root1==null&&root2==null) {
+            return null;
+        }
+        if(root1==null) {
+            return root2;
+        }
+        if(root2==null) {
+            return root1;
+        }
+        root1.val+=root2.val;
+        root1.left=mergeTrees(root1.left,root2.left);
+        root1.right=mergeTrees(root1.right,root2.right);
+        return root1;
+    }
+    //填充每个节点的下一个节点的右侧指针
+     public Node connect(Node root) {
+        if(root==null) {
+            return null;
+        }
+        if(root.left!=null) {
+            root.left.next=root.right;
+            if(root.next!=null) {
+            root.right.next=root.next.left;
+            }
+        }
+        connect(root.left);
+        connect(root.right);
+        return root;
+    }
+    */
 
 }

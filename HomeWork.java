@@ -152,10 +152,47 @@ public class HomeWork {
             }
         }
     }
+    //将一个数组从左开始前k个字符进行旋转：左旋数组
+    public static String reverse(String str,int start,int end) {
+        char[] chars=str.toCharArray();
+        while (start<end) {
+            char tmp=chars[start];
+            chars[start]=chars[end];
+            chars[end]=tmp;
+            start++;
+            end--;
+        }
+        return String.copyValueOf(chars);
+    }
+    public static void leftArray(String str,int k) {
+        if(str==null||k>str.length()) {
+            return;
+        }
+        str=reverse(str,0,k-1);
+        str=reverse(str,k,str.length()-1);
+        str=reverse(str,0,str.length()-1);
+        System.out.println(str);
+    }
+    //字符串逆置，如 "I am a student" 逆置为 "student a am I"
+    public static void reverseString(String str) {
+        String[] strings=str.split(" ");
+        int start=0;
+        int end=strings.length-1;
+        while (start<end) {
+            String tmp=strings[start];
+            strings[start]=strings[end];
+            strings[end]=tmp;
+            start++;
+            end--;
+        }
+        for (int i = 0; i <strings.length ; i++) {
+            System.out.print(strings[i]+" ");
+        }
+    }
 
     public static void main(String[] args) {
-        int[] array={1,3,5,7,1,3,5,9};
-        findFirst(array);
+       String s="i am a student";
+       reverseString(s);
     }
     public static void main1(String[] args) {
         int[][] array={{1,2,3,4},{5,6,7,8},{9,10,12,11},{13,14,15,16}};

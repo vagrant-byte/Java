@@ -189,8 +189,26 @@ public class HomeWork {
             System.out.print(strings[i]+" ");
         }
     }
+    //字符串压缩 “aabbccdaa" -> "a2b2c2d1a2"
+    public static String stringCompress(String str) {
+        StringBuilder stringBuilder=new StringBuilder();
+        char[] chars=str.toCharArray();
+        char ch=str.charAt(0);
+        int count=1;
+        for (int i = 1; i <str.length() ; i++) {
+            if(str.charAt(i)==ch) {
+                count++;
+                continue;
+            }
+            stringBuilder.append(ch).append(count);
+            ch=str.charAt(i);
+            count=1;
+        }
+        stringBuilder.append(ch).append(count);
+        return stringBuilder.toString();
+    }
 
-    public static void main(String[] args) {
+    public static void main6(String[] args) {
        String s="i am a student";
        reverseString(s);
     }
@@ -226,5 +244,31 @@ public class HomeWork {
             System.out.println("NullPointerException");
         }
     }
+
+    public static void main(String[] args) {
+        int[][] x=new int[3][2];
+        System.out.println(x.length);
+    }
+
+        public HomeWork() {
+            System.out.println("HelloA");
+        } {
+            System.out.println("i am A class");
+        } static {
+            System.out.println("static A");
+        }
+    }
+    class Test extends HomeWork{
+        public Test() {
+            System.out.println("TestClass");
+        } {
+            System.out.println("i am TestClass");
+        }
+        static {
+            System.out.println("static TestClass");
+        }
+        public static void main7(String[] args) {
+            new Test();
+        }
 }
 

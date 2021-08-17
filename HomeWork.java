@@ -207,6 +207,46 @@ public class HomeWork {
         stringBuilder.append(ch).append(count);
         return stringBuilder.toString();
     }
+    //输入一行字符，统计字符串中数字个数
+    public static void num(String str) {
+        int count=0;
+        for (int i = 0; i <str.length() ; i++) {
+            if(str.charAt(i)>='0'&&str.charAt(i)<='9') {
+                count++;
+            }
+        }
+        System.out.println(count);
+    }
+    //找出一组数字中的不重复的数字
+    public static int findNum(int[] nums) {
+        Map<Integer,Integer> map = new HashMap<>();
+        for(int i = 0; i < nums.length; i++){
+            if(map.get(nums[i]) == null){
+                map.put(nums[i],1);
+            } else{
+                map.put(nums[i],map.get(nums[i])+1);
+            }
+        }
+        for(Map.Entry<Integer,Integer> entry : map.entrySet()){
+            if(entry.getValue() == 1){
+                return entry.getKey();
+            }
+        }
+        return -1;
+    }
+    public static void search(int[] array) {
+        int res=array[0];
+        for (int i = 1; i <array.length ; i++) {
+            res=res^array[i];
+        }
+        System.out.println(res);
+    }
+
+    public static void main(String[] args) {
+        int[] array={2,3,4,5,2,3,4,5,6};
+        int num=findNum(array);
+        System.out.println(num);
+    }
 
     public static void main6(String[] args) {
        String s="i am a student";
@@ -245,7 +285,7 @@ public class HomeWork {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main7(String[] args) {
         int[][] x=new int[3][2];
         System.out.println(x.length);
     }

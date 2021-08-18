@@ -241,11 +241,41 @@ public class HomeWork {
         }
         System.out.println(res);
     }
+    //如何判断一个数是否是2的k次方
+    public static boolean fun(int i){
+        return (i > 0) && ((i & (i - 1)) == 0);
+    }
+    public String GetSequeOddNum(int m){
+        StringBuilder str = new StringBuilder();
+        int nums = (int)Math.pow(m,3);
+        Queue queue = new LinkedList<>();
+        int sums = 0;
+        int i = 0;
+        for (i = 1; i < 1000000; i += 2) {
+            queue.offer(i);
+            if(queue.size() > m){
+                int tmp= (int) queue.poll();
+                sums -=tmp;
+            }
+            sums += i;
+            if(sums == nums){
+                break;
+            }
+        }
+        if(i < 1000000){
+            while(!queue.isEmpty()){
+                str.append(queue.poll());
+                if(!queue.isEmpty()){
+                    str.append("+");
+                }
+            }
+        }
+        return str.toString();
+    }
 
     public static void main(String[] args) {
-        int[] array={2,3,4,5,2,3,4,5,6};
-        int num=findNum(array);
-        System.out.println(num);
+        int n=1;
+        System.out.println(fun(n));
     }
 
     public static void main6(String[] args) {

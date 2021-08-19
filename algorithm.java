@@ -264,5 +264,20 @@ public class algorithm {
         return res[res.length-1];
 
     }
+    //位运算
+    //位1的个数
+    public int hammingWeight(int n) {
+        int count = 0;
+        while(n!=0){
+            n = ((n-1)&n);
+            count++;
+        }
+        return count;
+    }
+    //2的幂
+    public boolean isPowerOfTwo(int n) {
+        return (n>0)&&((n&(n-1))==0);
+
+    }
 
 }

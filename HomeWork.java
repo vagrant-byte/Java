@@ -245,6 +245,7 @@ public class HomeWork {
     public static boolean fun(int i){
         return (i > 0) && ((i & (i - 1)) == 0);
     }
+    //
     public String GetSequeOddNum(int m){
         StringBuilder str = new StringBuilder();
         int nums = (int)Math.pow(m,3);
@@ -272,10 +273,24 @@ public class HomeWork {
         }
         return str.toString();
     }
+    //写一个函数，求两个整数之和，要求在函数体内不得使用+、-、*、/四则运算符号
+    public static  void ADD(int x,int y) {
+        int sum, carry;
+        do
+        {
+            sum = x^y;
+            carry = (x&y)<<1;//求解出进位，然后左移一位，如进位为1，左移后为10
+            x = sum;//产生了两个数，如此计算
+            y = carry;
+        }
+        while(y!=0);
+        System.out.println(x);;
+    }
 
     public static void main(String[] args) {
-        int n=1;
-        System.out.println(fun(n));
+        int n=5;
+        int n2=7;
+        ADD(n,n2);
     }
 
     public static void main6(String[] args) {

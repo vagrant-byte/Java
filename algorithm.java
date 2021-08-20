@@ -279,5 +279,13 @@ public class algorithm {
         return (n>0)&&((n&(n-1))==0);
 
     }
+    //只出现一次的数字
+    public int singleNumber(int[] nums) {
+        int tmp=0;
+        for (int i = 0; i <nums.length ; i++) {
+            tmp=tmp^nums[i];
+        }
+        return tmp;
+    }
 
 }

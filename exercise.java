@@ -79,4 +79,44 @@ public class exercise {
     public int min() {
         return minStack.peek();
     }
+    //替换空格
+    public String replaceSpace(String s) {
+        StringBuffer stringBuffer=new StringBuffer();
+        char[] chars=s.toCharArray();
+        for (int i = 0; i <s.length() ; i++) {
+            if(chars[i]!=' ') {
+                stringBuffer.append(chars[i]);
+            } else {
+                stringBuffer.append("%20");
+            }
+        }
+        return stringBuffer.toString();
+    }
+    //左旋转字符串
+    public static void swap(char[] ch,int left,int right) {
+        while (left<right) {
+            char tmp=ch[left];
+            ch[left]=ch[right];
+            ch[right]=tmp;
+            left++;
+            right--;
+        }
+
+    }
+    public String reverseLeftWords(String s, int n) {
+        /*StringBuffer stringBuffer=new StringBuffer();
+        char[] chars=s.toCharArray();
+        for (int i = n; i <s.length() ; i++) {
+            stringBuffer.append(chars[i]);
+        }
+        for (int i = 0; i <n ; i++) {
+            stringBuffer.append(chars[i]);
+        }
+        return stringBuffer.toString();*/
+        char[] chars=s.toCharArray();
+        swap(chars,0,n-1);
+        swap(chars,n,s.length()-1);
+        swap(chars,0,s.length()-1);
+        return new String(chars);
+    }
 }

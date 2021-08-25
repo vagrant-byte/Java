@@ -119,4 +119,43 @@ public class exercise {
         swap(chars,0,s.length()-1);
         return new String(chars);
     }
+    //二维数组中查找
+    public boolean findNumberIn2DArray(int[][] matrix, int target) {
+        if(matrix==null||matrix.length==0) {
+            return false;
+        }
+        int i=matrix.length;
+        int j=matrix[0].length;
+        int row=0;
+        int col=j-1;
+        while (row<i&&col>=0) {
+            if(matrix[row][col]>target) {
+                col--;
+            } else if(matrix[row][col]<target) {
+                row++;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+    //旋转数组的最小数
+    public int minArray(int[] numbers) {
+        for (int i = 1; i < numbers.length; i++)
+            if (numbers[i] < numbers[i - 1])
+                return numbers[i];
+        return numbers[0];
+    }
+    //第一次只出现一次的字符
+    public char firstUniqChar(String s) {
+        int[] count = new int[256];
+        char[] chars = s.toCharArray();
+        for(char c : chars)
+            count[c]++;
+        for(char c : chars){
+            if(count[c] == 1)
+                return c;
+        }
+        return ' ';
+    }
 }

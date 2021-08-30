@@ -57,4 +57,37 @@ public class dynamicProgramming {
         }
         return dp[n-1];
     }
+    //把数字翻译成字符串
+    public int translateNum(int num) {
+        if(num<=9) {
+            return 1;
+        }
+        int ba=num%100;
+        if(ba<=9||ba>=26) {
+            return translateNum(num/10);
+        } else {
+            return translateNum(num/10)+translateNum(num/100);
+        }
+
+    }
+    //最长不含重复字符的子字符串
+    public int lengthOfLongestSubstring(String s) {
+        if(s.length()==0||s.length()==1) {
+            return s.length();
+        }
+        int start=0;
+        int maxLength=0;
+        char[] ch=s.toCharArray();
+        for(int i=1;i<s.length();i++) {
+            for(int j=start;j<i;j++) {
+                if(ch[j]==ch[i]) {
+                    start=j+1;
+                    break;
+                }
+            }
+            maxLength=Math.max(maxLength,i-start+1);
+        }
+        return maxLength;
+
+    }
 }

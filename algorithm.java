@@ -20,6 +20,64 @@ public class algorithm {
         }
         return -1;
     }
+    //旋转数组的最小数
+    public int minNumberInRotateArray(int [] array) {
+        if(array.length==0||array==null) {
+            return 0;
+        }
+        //中间值查找 数组分为两部分两部分都有序 如果中间值大于left下标值证明left到mid有序最小的在右半部分反之在左半部分
+        int left=0;
+        int right=array.length-1;
+        int mid=0;
+        while (array[left]>=array[right]) {
+            //左右相邻最小的为最右边因为数组有序
+            if(right-left==1) {
+                mid=right;
+                break;
+            }
+            mid=(left+right)/2;
+            //当三个数都相等时线性遍历
+            if(array[left]==array[mid]&&array[mid]==array[right]) {
+                int result=array[left];
+                for (int i = left+1; i <right ; i++) {
+                    if(result>array[i]) {
+                        result=array[i];
+                    }
+                }
+                return result;
+            }
+
+            if(array[mid]>=array[left]) {
+                left=mid;
+            } else {
+                right=mid;
+            }
+        }
+        return array[mid];
+
+    }
+    //奇数在前偶数在后顺序不变
+    public void reOrderArray(int [] array) {
+        if(array==null||array.length==0) {
+            return;
+        }
+        //保持顺序不变采用直接插入的方法 找到奇数将其保存后，将其前面的数字向后移插入奇数
+        int k=0;//记录奇数插入位置
+        for (int i = 0; i <array.length ; i++) {
+            //表示奇数
+            if((array[i]&1)==1) {
+                int tmp=array[i];
+                int j=i;
+                //将要插入位置到找到奇数位置间的元素都往后移
+                while (j>k) {
+                   array[j]=array[j-1];
+                   j--;
+                }
+                array[k]=tmp;
+                k++;
+            }
+        }
+    }
     //搜素插入位置
     public int searchInsert(int[] nums, int target) {
         for(int i=0;i<nums.length;i++) {

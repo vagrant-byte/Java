@@ -78,6 +78,60 @@ public class algorithm {
             }
         }
     }
+    //数组中出现次数一半以上的数字
+    public int MoreThanHalfNum_Solution(int [] array) {
+        if(array==null||array.length==0) {
+            return 0;
+        }
+        int number=array[0];
+        int times=1;
+        for (int i = 1; i <array.length ; i++) {
+            if(times==0) {
+                number=array[i];
+                times=1;
+            }else if(array[i]==number) {
+                times++;
+            } else {
+                times--;
+            }
+        }
+        int count=0;
+        for (int i = 0; i <array.length ; i++) {
+            if(array[i]==number) {
+                count++;
+            }
+        }
+        if(count>=array.length/2) {
+            return number;
+        }
+        return 0;
+    }
+    //替换空格
+    public String replaceSpace(StringBuffer str) {
+        int count=0;//用来记录空格个数
+        for (int i = 0; i <str.length() ; i++) {
+            if (str.charAt(i) == ' ') {
+                count++;
+            }
+        }
+        int new_length=str.length()+2*count;
+        int old_end=str.length()-1;
+        int new_end=new_length-1;
+        str.setLength(new_length);
+        while (old_end>=0&&new_end>=0) {
+            if(str.charAt(old_end)==' ') {
+                str.setCharAt(new_end--,'0');
+                str.setCharAt(new_end--,'2');
+                str.setCharAt(new_end--,'%');
+                old_end--;
+            } else {
+                str.setCharAt(new_end--,str.charAt(old_end));
+                old_end--;
+
+            }
+        }
+        return str.toString();
+    }
     //搜素插入位置
     public int searchInsert(int[] nums, int target) {
         for(int i=0;i<nums.length;i++) {

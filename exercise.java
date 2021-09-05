@@ -1,5 +1,7 @@
 package 剑指offer;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Stack;
 //复杂链表的复制
 /*class Node {
@@ -296,6 +298,43 @@ public class exercise {
             }
         }
         return a.toString().trim();
+    }
+    //把数组排成最小数
+    public String minNumber(int[] nums) {
+        String[] arr = new String[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            arr[i] = String.valueOf(nums[i]);
+        }
+        Arrays.sort(arr, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return (o1 + o2).compareTo(o2 + o1);
+            }
+        });
+        StringBuilder sb = new StringBuilder();
+        for (String s : arr) {
+            sb.append(s);
+        }
+        return sb.toString();
+    }
+    //扑克牌中的顺子 如果0的个数大于不连续数之间的距离则为顺子否则不是
+    public boolean isStraight(int[] nums) {
+        //首先进行排序
+        Arrays.sort(nums);
+        int zero=0;
+        int diff=0;
+        for (int i = 0; i <nums.length-1 ; i++) {
+            if(nums[i]==0) {
+                zero++;
+            } else {
+                if(nums[i]==nums[i+1]) return false;
+                if (nums[i] + 1 != nums[i+1]) {
+                    diff+=nums[i+1]-nums[i]-1;//之间只差n-1个元素
+                }
+            }
+        }
+        return zero>=diff;
+
 
     }
 }

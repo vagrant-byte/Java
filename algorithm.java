@@ -363,6 +363,29 @@ public class algorithm {
         }
         return i2;
     }
+    //斐波那契数列
+    private HashMap<Integer,Integer> map=new HashMap<>();
+    public int Fibonacci(int n) {
+
+        if(n==0||n==1) {
+            return n;
+        }
+        int pre=0;
+        if(map.containsKey(n-2)) {
+            pre=map.get(n-2);
+        } else {
+            pre=Fibonacci(n-2);
+            map.put(n-2,pre);
+        }
+        int ppre=0;
+        if(map.containsKey(n-1)) {
+            ppre=map.get(n-1);
+        } else {
+            ppre=Fibonacci(n-1);
+            map.put(n-1,ppre);
+        }
+        return pre+ppre;
+    }
     //打家劫舍
     public int rob(int[] nums) {
         if(nums==null) return 0;

@@ -334,7 +334,24 @@ public class exercise {
             }
         }
         return zero>=diff;
-
-
+    }
+    //1+2+3+...+N的和
+    public int sumNums(int n) {
+        return (int)(Math.pow(n,2)+n)>>1;
+    }
+    //数值的整数次方
+    public double myPow(double x, int n) {
+        if(n==-1) {
+            return 1/x;
+        }
+        if(n==0) {
+            return 1;
+        }
+        if(n==1) {
+            return x;
+        }
+        double half=myPow(x,n/2);
+        double mod=myPow(x,n%2);
+        return half*half*mod;
     }
 }

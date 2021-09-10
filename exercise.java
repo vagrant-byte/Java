@@ -354,4 +354,20 @@ public class exercise {
         double mod=myPow(x,n%2);
         return half*half*mod;
     }
+    //位运算
+    //二进制中1的个数
+    public int hammingWeight(int n) {
+        int count=0;
+        while(n!=0) {
+            count++;
+            n=n&(n-1);
+        }
+        return count;
+    }
+    //不用加减乘除完成加法
+    public int add(int a, int b) {
+        //a^b是不考虑进位的加法
+        //a&b<<1是进位
+        return b==0 ? a :add(a^b,(a&b)<<1);
+    }
 }

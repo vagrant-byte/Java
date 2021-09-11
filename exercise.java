@@ -1,8 +1,7 @@
 package 剑指offer;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Stack;
+import java.util.*;
+
 //复杂链表的复制
 /*class Node {
     int val;
@@ -369,5 +368,37 @@ public class exercise {
         //a^b是不考虑进位的加法
         //a&b<<1是进位
         return b==0 ? a :add(a^b,(a&b)<<1);
+    }
+    //数组中数字出现的次数 所有数字都出现2次只有两个数字出现一次
+    public int[] singleNumbers(int[] nums) {
+        int sum=0;
+        for (int i = 0; i <nums.length ; i++) {
+            sum^=nums[i];
+        }
+        //得到sum二进制的1的最低位
+        int flag=(-sum)&sum;
+        int result[]=new int[2];
+        for(int i=0;i<nums.length;i++) {
+            if((flag&nums[i])==0) {
+                result[0]^=nums[i];
+            } else {
+                result[1]^=nums[i];
+            }
+
+        }
+        return result;
+    }
+    //所有数字都出现3次只有一个数字出现1次
+    public int singleNumber(int[] nums) {
+        Map<Integer, Integer> map = new HashMap();
+        for (int i = 0; i < nums.length; i++) {
+            int a = map.getOrDefault(nums[i], 0);
+            map.put(nums[i], a + 1);
+        }
+        for (Integer a : map.keySet()) {
+            if(map.get(a) == 1) return a;
+        }
+        return -1;
+
     }
 }

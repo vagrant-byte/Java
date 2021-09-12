@@ -399,6 +399,31 @@ public class exercise {
             if(map.get(a) == 1) return a;
         }
         return -1;
-
+    }
+    //数组中出现次数超过一半的数字
+    public int majorityElement(int[] nums) {
+        int count=0;
+        int card=0;//出现次数最多的数字
+        for (int i = 0; i <nums.length ; i++) {
+            if(count==0) {
+                card=nums[i];
+            }
+            if(card==nums[i]) {
+                count++;
+            } else {
+                count--;
+            }
+        }
+        return card;
+    }
+    //构建乘积数组
+    public int[] constructArr(int[] a) {
+        int n = a.length;
+        int[] B = new int[n];
+        for (int i = 0, product = 1; i < n; product *= a[i], i++)       /* 从左往右累乘 */
+            B[i] = product;
+        for (int i = n - 1, product = 1; i >= 0; product *= a[i], i--)  /* 从右往左累乘 */
+            B[i] *= product;
+        return B;
     }
 }

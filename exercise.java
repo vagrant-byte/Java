@@ -440,4 +440,64 @@ public class exercise {
         }
         return list.get(0);
     }
+    //顺时针打印矩阵
+    public int[] spiralOrder(int[][] matrix) {
+        int row=matrix.length;
+        if(row==0) {
+            return new int[0];
+        }
+        int col=matrix[0].length;
+        int[] res=new int[row*col];
+        int left=0;//左
+        int right=col-1;//右
+        int top=0;//上
+        int bottom=row-1;//下
+        int index=0;//记录数组位置
+        while (true) {
+            //从左往右
+            for (int i = left; i <=right ; i++) {
+                res[index++]=matrix[top][i];
+            }
+            if(++top>bottom) {
+                break;
+            }
+            //从上往下
+            for (int i = top; i <=bottom ; i++) {
+                res[index++]=matrix[i][right];
+            }
+            if(--right<left) {
+                break;
+            }
+            //从右往左
+            for (int i = right; i >=left ; i--) {
+                res[index++]=matrix[bottom][i];
+            }
+            if(--bottom<top) {
+                break;
+            }
+            //从下往上走
+            for (int i = bottom; i >=top ; i--) {
+                res[index++]=matrix[i][left];
+            }
+            if(++left>right) {
+                break;
+            }
+
+        }
+        return res;
+    }
+    //栈的压入弹出
+    public boolean validateStackSequences(int[] pushed, int[] popped) {
+        Deque<Integer> stack = new ArrayDeque();
+        int j = 0;
+        for (int elem : pushed) {
+            stack.push(elem);
+            while (j < popped.length && !stack.isEmpty() && stack.peek() == popped[j]) {
+                stack.pop();
+                j++;
+            }
+        }
+        return j == popped.length;
+
+    }
 }

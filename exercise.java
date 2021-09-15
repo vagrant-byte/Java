@@ -498,6 +498,42 @@ public class exercise {
             }
         }
         return j == popped.length;
-
+    }
+    //字符串转整数
+    public int strToInt(String str) {
+        //去空格
+        str=str.trim();
+        if(str.length()==0) {
+            return 0;
+        }
+        //isMinus标记是不是负数
+        boolean isMinus=false;
+        char[] ch=str.toCharArray();
+        if(ch[0]=='+'||ch[0]=='-'||Character.isDigit(ch[0])) {
+            if(ch[0]=='+'||ch[0]=='-') {
+                if(ch[0]=='-') {
+                    isMinus=true;
+                }
+                //删除首位
+                ch=Arrays.copyOfRange(ch,1,ch.length);
+            }
+            int index=0;
+            //结果可能超出范围用long
+            long res=0;
+            while(index<ch.length&&Character.isDigit(ch[index])) {
+                res*=10;
+                res+=ch[index]-'0';
+                if(res > Integer.MAX_VALUE){
+                    //正负号看是正数负数，返回最大值
+                    return isMinus ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+                }
+                //别忘了往后走一位
+                index++;
+            }
+            //long转int
+            return isMinus ? -(int)res : (int)res;
+        }
+        //首位不对
+        return 0;
     }
 }

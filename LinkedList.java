@@ -53,5 +53,84 @@ public class LinkedList {
         }
         return slow;
     }
+    //链表倒数第k个节点
+    public ListNode FindKthToTail(ListNode head,int k) {
+        ListNode slow=head;
+        ListNode fast=head;
+        while(k>0) {
+            if(fast!=null) {
+                fast=fast.next;
+                k--;
+            } else {
+                return null;
+            }
+
+        }
+        while(fast!=null) {
+            fast=fast.next;
+            slow=slow.next;
+        }
+        return slow;
+
+    }
+    //合并两个链表
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode head=new ListNode(-1);
+        ListNode tmp=head;
+        while(l1!=null&&l2!=null) {
+            if(l1.val<l2.val) {
+                tmp.next=l1;
+                l1=l1.next;
+                tmp=tmp.next;
+            } else {
+                tmp.next=l2;
+                l2=l2.next;
+                tmp=tmp.next;
+            }
+        }
+        if(l1==null) {
+            tmp.next=l2;
+        } else{
+            tmp.next=l1;
+        }
+        return head.next;
+    }
+    //链表分割
+    public ListNode partition(ListNode pHead, int x) {
+        // write code here
+        ListNode as=null;
+        ListNode ae=null;
+        ListNode bs=null;
+        ListNode be=null;
+        ListNode cur=pHead;
+        while(cur!=null) {
+            if(cur.val<x) {
+                if(as==null) {
+                    as=cur;
+                    ae=cur;
+                } else {
+                    ae.next=cur;
+                    ae=ae.next;
+                }
+            } else {
+                if(bs==null) {
+                    bs=cur;
+                    be=cur;
+                } else {
+                    be.next=cur;
+                    be=be.next;
+                }
+            }
+            cur=cur.next;
+        }
+        if(as==null) {
+            return bs;
+        }
+        ae.next=bs;
+        if(bs!=null) {
+            be.next=null;
+        }
+        return as;
+    }
 
 }

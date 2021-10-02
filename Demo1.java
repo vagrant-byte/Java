@@ -91,10 +91,25 @@ class TreeNode {
             }
             return result;
         }
-        //二叉搜素数的后序遍历
+        //二叉搜索树的后序遍历
         public boolean VerifySquenceOfBST(int [] sequence) {
-            
-
+            if(sequence.length==0) {
+                return false;
+            }
+            return isbst(sequence,0,sequence.length-1);
+        }
+        public boolean isbst(int[] sequence,int start,int end) {
+            int root=sequence[end];
+            int i=start;
+            while (i<=end&&sequence[i]<root) {
+                i++;
+            }
+            for (int j = i; j < end; j++) {
+                if (sequence[j]<root) {
+                    return false;
+                }
+            }
+            return isbst(sequence,i,end-1)&&isbst(sequence,start,i-1);
         }
 
     }

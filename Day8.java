@@ -1,6 +1,40 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Day8 {
+    //添加与搜索单词
+    Map<Integer, List<String>> map=new HashMap<>();
+    public void WordDictionary() {
+
+    }
+
+    public void addWord(String word) {
+        map.putIfAbsent(word.length(),new ArrayList<>());
+        map.get(word.length()).add(word);
+    }
+
+    public boolean search(String word) {
+        if(!map.containsKey(word.length())) {
+            return false;
+        } else {
+            List<String> list=map.get(word.length());
+            for (String s:list) {
+                char[] c1=s.toCharArray();
+                char[] c2=word.toCharArray();
+                for (int i = 0; i <=c1.length ; i++) {
+                    if(i==c1.length) {
+                        return true;
+                    }
+                    if(c2[i]=='.') {
+                        continue;
+                    }
+                    if (c1[i]!=c2[i]) {
+                        break;
+                    }
+                }
+            }
+            return false;
+        }
+    }
     //最大公约数
     public static int getGcd(int a, int b) {
         while (b>0) {
@@ -11,7 +45,7 @@ public class Day8 {
         return a;
     }
    //最小公倍数
-    public static void main(String[] args) {
+    public static void main2(String[] args) {
         Scanner scanner=new Scanner(System.in);
         int A=scanner.nextInt();
         int B=scanner.nextInt();

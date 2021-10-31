@@ -1,4 +1,57 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class LeetCode {
+    //键盘行
+    public String[] findWords(String[] words) {
+        String s1 = "qwertyuiopQWERTYUIOP";
+        String s2 = "asdfghjklASDFGHJKL";
+        String s3 = "zxcvbnmZXCVBNM";
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i <words.length ; i++) {
+            int n1=0;
+            int n2=0;
+            int n3=0;
+            int len=words[i].length();
+            for (int j = 0; j <len ; j++) {
+                if(s1.contains(words[i].charAt(j)+"")) {
+                    n1++;
+                } else if(s2.contains(words[i].charAt(j)+"")) {
+                    n2++;
+                } else {
+                    n3++;
+                }
+            }
+            if(n1==len||n2==len||n3==len) {
+                list.add(words[i]);
+            }
+        }
+        return list.toArray(new String[list.size()]);
+
+    }
+    //只出现一次的数字
+    public int[] singleNumber(int[] nums) {
+        HashMap<Integer,Integer> map=new HashMap<>();
+        int[] result=new int[2];
+        for (int i = 0; i <nums.length ; i++) {
+            if(!map.containsKey(nums[i])) {
+                map.put(nums[i],1);
+            } else {
+                int tmp=map.get(nums[i]);
+                map.put(nums[i],tmp+1);
+            }
+        }
+        int i=0;
+        for (int n:nums) {
+            if(map.get(n)==1) {
+                result[i++]=n;
+            }
+        }
+        return result;
+
+
+    }
     //重新排序得到2的幂
     public boolean reorderedPowerOf2(int n) {
         String s=countDigits(n);

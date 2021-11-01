@@ -1,8 +1,15 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class LeetCode {
+    //分糖果
+    public int distributeCandies(int[] candyType) {
+        Set<Integer> set=new HashSet<>();
+        for (int i = 0; i <candyType.length ; i++) {
+            set.add(candyType[i]);
+        }
+        return Math.min(set.size(),candyType.length/2);
+
+    }
     //键盘行
     public String[] findWords(String[] words) {
         String s1 = "qwertyuiopQWERTYUIOP";

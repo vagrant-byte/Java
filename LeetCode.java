@@ -1,6 +1,15 @@
 import java.util.*;
-
+ class ListNode {
+       int val;
+       ListNode next;
+       ListNode(int x) { val = x; }
+  }
 public class LeetCode {
+     //删除链表的节点
+    public void deleteNode(ListNode node) {
+        node.val=node.next.val;
+        node.next=node.next.next;
+    }
     //分糖果
     public int distributeCandies(int[] candyType) {
         Set<Integer> set=new HashSet<>();

@@ -5,6 +5,15 @@ import java.util.*;
        ListNode(int x) { val = x; }
   }
 public class LeetCode {
+     //范围求和
+    public int maxCount(int m, int n, int[][] ops) {
+        for (int i = 0; i <ops.length ; i++) {
+            m=m>ops[i][0]?ops[i][0]:m;
+            n=n>ops[i][1]?ops[i][1]:n;
+        }
+        return m*n;
+
+    }
      //有效平方数
     public boolean isPerfectSquare(int num) {
         int low=0;

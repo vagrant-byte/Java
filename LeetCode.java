@@ -2,9 +2,68 @@ import java.util.*;
  class ListNode {
        int val;
        ListNode next;
-       ListNode(int x) { val = x; }
+       ListNode() {}
+      ListNode(int val) { this.val = val; }
+      ListNode(int val, ListNode next) { this.val = val; this.next = next; }
   }
 public class LeetCode {
+     //最长公共前缀
+    public String longestCommonPrefix(String[] strs) {
+        if(strs==null) {
+            return "";
+        }
+        if(strs.length==1) {
+            return strs[0];
+        }
+        String str=strs[0];
+        for (int i = 0; i <strs.length ; i++) {
+            while(strs[i].indexOf(str)!=0) {
+                str=str.substring(0,str.length()-1);
+            }
+        }
+        return str;
+
+    }
+     //两数相加
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode cur=new ListNode(-1);
+        ListNode prev=cur;
+        int tmp=0;
+        while (l1!=null||l2!=null||tmp!=0) {
+            if(l1!=null) {
+                tmp+=l1.val;
+                l1=l1.next;
+            }
+            if(l2!=null) {
+                tmp+=l2.val;
+                l2=l2.next;
+            }
+            prev.next=new ListNode(tmp%10);
+            prev=prev.next;
+            tmp/=10;
+        }
+        return cur.next;
+    }
+     //猜数字游戏
+    public String getHint(String secret, String guess) {
+        int a=0;
+        int b=0;
+        int[] arr=new int[10];
+        for(int i=0;i<secret.length();i++) {
+            if(secret.charAt(i)==guess.charAt(i)) {
+                a++;
+            } else {
+                if(arr[secret.charAt(i)-'0']++<0) {
+                    b++;
+                }
+                if(arr[guess.charAt(i)-'0']-->0) {
+                    b++;
+                }
+            }
+        }
+        return a+"A"+b+"B";
+
+    }
      //范围求和
     public int maxCount(int m, int n, int[][] ops) {
         for (int i = 0; i <ops.length ; i++) {

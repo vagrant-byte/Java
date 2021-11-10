@@ -7,6 +7,34 @@ import java.util.*;
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
   }
 public class LeetCode {
+     //提莫攻击
+    public int findPoisonedDuration(int[] timeSeries, int duration) {
+        int sum=0;
+        for(int i=1;i<timeSeries.length;i++) {
+            if(timeSeries[i]-timeSeries[i-1]>=duration) {
+                sum=sum+duration;
+            } else {
+                sum+=timeSeries[i]-timeSeries[i-1];
+            }
+        }
+        return sum+duration;
+
+    }
+     //丢失的数字
+    public static int missingNumber(int[] nums) {
+        Arrays.sort(nums);
+        for (int i = 0; i <nums.length ; i++) {
+            if(i!=nums[i]) {
+                return i;
+            }
+        }
+        return nums.length;
+    }
+
+    public static void main(String[] args) {
+        int[] nums={0,1};
+        System.out.println(missingNumber(nums));
+    }
      //最长公共前缀
     public String longestCommonPrefix(String[] strs) {
         if(strs==null) {

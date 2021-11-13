@@ -7,6 +7,30 @@ import java.util.*;
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
   }
 public class LeetCode {
+     //检测大写字母
+    public boolean detectCapitalUse(String word) {
+        int upper=0;//大写字母
+        int lower=0;//小写字母
+        for (int i = 0; i <word.length() ; i++) {
+            if(word.charAt(i)>='a') {
+                lower++;
+            } else {
+                upper++;
+            }
+        }
+        if(lower==word.length()) {
+            return true;
+        }
+        if(upper==word.length()) {
+            return true;
+        }
+        if(upper==1&&word.charAt(0)<'a') {
+            return true;
+        }
+        return false;
+
+
+    }
      //提莫攻击
     public int findPoisonedDuration(int[] timeSeries, int duration) {
         int sum=0;

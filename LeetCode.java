@@ -7,6 +7,42 @@ import java.util.*;
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
   }
 public class LeetCode {
+     //灯泡开关
+    public int bulbSwitch(int n) {
+        return (int)Math.sqrt(n);
+
+    }
+     //URL化
+    public String replaceSpaces(String S, int length) {
+        StringBuilder stringBuilder=new StringBuilder();
+        char[] chars=S.toCharArray();
+        for (int i = 0; i <length ; i++) {
+            if(chars[i]==' ') {
+                stringBuilder.append("%20");
+            } else {
+                stringBuilder.append(chars[i]);
+            }
+        }
+        return stringBuilder.toString();
+
+    }
+     //是否互为字符串重排
+    public boolean CheckPermutation(String s1, String s2) {
+        if(s1.length()!=s2.length()) {
+            return false;
+        }
+        char[] chars1=s1.toCharArray();
+        char[] chars2=s2.toCharArray();
+        Arrays.sort(chars1);
+        Arrays.sort(chars2);
+        for (int i = 0; i <chars1.length ; i++) {
+            if(chars1[i]!=chars2[i]) {
+                return false;
+            }
+        }
+        return true;
+
+    }
      //检测大写字母
     public boolean detectCapitalUse(String word) {
         int upper=0;//大写字母

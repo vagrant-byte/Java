@@ -7,6 +7,18 @@ import java.util.*;
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
   }
 public class LeetCode {
+     //回文结构
+    public boolean canPermutePalindrome(String s) {
+        char[] chars=s.toCharArray();
+        Set<Character> set=new HashSet<>();
+        for (int i = 0; i <s.length() ; i++) {
+            if(!set.add(chars[i])) {
+                set.remove(chars[i]);
+            }
+        }
+        return set.size()<=1;
+
+    }
      //灯泡开关
     public int bulbSwitch(int n) {
         return (int)Math.sqrt(n);

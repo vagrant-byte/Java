@@ -7,6 +7,24 @@ import java.util.*;
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
   }
 public class LeetCode {
+     //最长和谐子序列
+    public int findLHS(int[] nums) {
+        Arrays.sort(nums);
+        int begin=0;
+        int end=0;
+        int res=0;
+        for (end=0;end<nums.length;end++) {
+            while (nums[end]-nums[begin]>1) {
+                begin++;
+            }
+            if(nums[end]-nums[begin]==1) {
+                 res=Math.max(res,end-begin+1);
+            }
+        }
+        return res;
+
+
+    }
      //回文结构
     public boolean canPermutePalindrome(String s) {
         char[] chars=s.toCharArray();

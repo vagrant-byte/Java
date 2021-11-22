@@ -7,6 +7,49 @@ import java.util.*;
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
   }
 public class LeetCode {
+     //字符串压缩
+    public String compressString(String S) {
+        if(S==null||S.length()==0) {
+            return S;
+        }
+        StringBuilder stringBuilder=new StringBuilder();
+        char prev=S.charAt(0);
+        int times=1;
+        for (int i = 1; i <S.length() ; i++) {
+            if(S.charAt(i)==prev) {
+                times++;
+            } else {
+                stringBuilder.append(prev).append(times);
+                prev=S.charAt(i);
+                times=1;
+            }
+        }
+        stringBuilder.append(prev).append(times);
+        return S.length()>stringBuilder.toString().length()?stringBuilder.toString():S;
+
+
+    }
+     //一次编辑
+     public boolean oneEditAway(String first, String second) {
+         int[][] dp=new int[first.length()+1][second.length()+1];
+         for (int i = 1; i <=first.length() ; i++) {
+             dp[i][0]=i;
+         }
+         for (int i = 1; i <=second.length() ; i++) {
+             dp[0][i]=i;
+         }
+         for (int i = 1; i <=first.length() ; i++) {
+             for (int j = 1; j <=second.length() ; j++) {
+                 if(first.charAt(i-1)==second.charAt(j-1)) {
+                     dp[i][j]=dp[i-1][j-1];
+                 } else {
+                     dp[i][j]=Math.min(Math.min(dp[i-1][j]+1,dp[i][j-1]+1),dp[i-1][j-1]+1);
+                 }
+             }
+         }
+         return dp[first.length()][second.length()]<=1;
+
+     }
      //最长和谐子序列
     public int findLHS(int[] nums) {
         Arrays.sort(nums);

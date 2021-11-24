@@ -7,6 +7,102 @@ import java.util.*;
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
   }
 public class LeetCode {
+     //删除中间节点 
+    public void deleteNode1(ListNode node) {
+        if(node==null) {
+            return;
+        }
+        node.val=node.next.val;
+        node.next=node.next.next;
+
+
+    }
+     //倒数第k个节点
+    public int kthToLast(ListNode head, int k) {
+        if(head==null) {
+            return -1;
+        }
+        ListNode first=head;
+        ListNode slow=head;
+        while (k!=0) {
+            first=first.next;
+            k--;
+        }
+        while (first!=null) {
+            first=first.next;
+            slow=slow.next;
+        }
+        return slow.val;
+
+    }
+     //移除重复节点
+    public  static ListNode removeDuplicateNodes(ListNode head) {
+        if(head==null) {
+            return null;
+        }
+        Set<Integer> set=new HashSet<>();
+        ListNode newHead=head;
+        set.add(head.val);
+        while (head.next!=null) {
+            if (set.contains(head.next.val)) {
+                head.next= head.next.next;
+            } else {
+                set.add(head.next.val);
+                head = head.next;
+            }
+
+        }
+        return newHead;
+
+    }
+
+    public static void main(String[] args) {
+
+    }
+    public boolean isFlipedString1(String s1, String s2) {
+        if(s1.length()!=s2.length()) {
+            return false;
+        }
+        String ss=s2+s2;
+        return ss.contains(s1);
+    }
+     //字符串轮转
+    public static boolean isFlipedString(String s1, String s2) {
+        int length1=s1.length();
+        int length2=s2.length();
+        if(length1!=length2) {
+            return false;
+        }
+        if(s1==null||s2==null) {
+            return false;
+        }
+        int i=0;
+        while (s1.charAt(i)!=s2.charAt(0)) {
+            i++;
+        }
+        //System.out.println(i);
+        StringBuilder stringBuilder=new StringBuilder();
+        for (int j = i; j <length1 ; j++) {
+            stringBuilder.append(s1.charAt(j));
+        }
+        for (int j = 0; j <i ; j++) {
+            stringBuilder.append(s1.charAt(j));
+        }
+        //System.out.println(stringBuilder.toString());
+        if(s2.equals(stringBuilder.toString())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static void main2(String[] args) {
+        String s1="";
+        String s2="";
+        System.out.println(isFlipedString(s1, s2));
+    }
+
+
      //字符串压缩
     public String compressString(String S) {
         if(S==null||S.length()==0) {
@@ -164,7 +260,7 @@ public class LeetCode {
         return nums.length;
     }
 
-    public static void main(String[] args) {
+    public static void main1(String[] args) {
         int[] nums={0,1};
         System.out.println(missingNumber(nums));
     }

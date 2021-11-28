@@ -7,15 +7,79 @@ import java.util.*;
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
   }
 public class LeetCode {
-     //删除中间节点 
+     //分割链表
+    public ListNode partition(ListNode head, int x) {
+        //分割链表
+       ListNode node1=new ListNode();
+       ListNode node2=new ListNode();
+       ListNode head1=node1;
+       ListNode head2=node2;
+       ListNode cur=head;
+       while (cur!=null) {
+           if(cur.val<x) {
+               node1.next=cur;
+               node1=node1.next;
+           } else {
+               node2.next=cur;
+               node2=node2.next;
+           }
+           cur=cur.next;
+       }
+       node1.next=head2.next;
+       node2.next=null;
+       return head1.next;
+
+    }
+
+     //找出字符串中所有字母异位词
+    public static List<Integer> findAnagrams(String s, String p) {
+        List<Integer> list=new ArrayList<>();
+        if(s==null||p==null) {
+            return list;
+        }
+        if(s.length()<p.length()) {
+            return list;
+        }
+        int[] mark=new int[26];
+        for (int i = 0; i <p.length() ; i++) {
+            mark[p.charAt(i)-'a']++;
+        }
+
+        for (int i = 0; i <=s.length()-p.length() ; i++) {
+            int[] temp=mark.clone();
+            for (int j = i; j <i+p.length() ; j++) {
+                if(temp[s.charAt(j)-'a']>0) {
+                    temp[s.charAt(j)-'a']--;
+                } else {
+                    break;
+                }
+            }
+            boolean flag=true;
+            for (int j = 0; j <26 ; j++) {
+                if(temp[j]!=0) {
+                    flag=false;
+                    break;
+                }
+            }
+            if(flag) {
+                list.add(i);
+            }
+        }
+        return list;
+    }
+    public static void main(String[] args) {
+        String s="cbaebabacd";
+        String p="abc";
+        System.out.println(findAnagrams(s, p));
+
+    }
+     //删除中间节点
     public void deleteNode1(ListNode node) {
         if(node==null) {
             return;
         }
         node.val=node.next.val;
         node.next=node.next.next;
-
-
     }
      //倒数第k个节点
     public int kthToLast(ListNode head, int k) {
@@ -53,10 +117,6 @@ public class LeetCode {
 
         }
         return newHead;
-
-    }
-
-    public static void main(String[] args) {
 
     }
     public boolean isFlipedString1(String s1, String s2) {

@@ -7,6 +7,28 @@ import java.util.*;
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
   }
 public class LeetCode {
+     //第K个最小的素数分数
+    public static int[] kthSmallestPrimeFraction(int[] arr, int k) {
+        List<int[]> res=new ArrayList<>();
+        for (int i = 0; i <arr.length ; i++) {
+            for (int j = i+1; j <arr.length ; j++) {
+                res.add(new int[]{arr[i],arr[j]});
+            }
+        }
+        //自定义排序
+        Collections.sort(res,(x,y) ->x[0]*y[1]-y[0]*x[1]);
+        return res.get(k-1);
+
+    }
+
+    public static void main(String[] args) {
+        int[] arr={1,2,3,5};
+        int k=3;
+        int[] a=kthSmallestPrimeFraction(arr, k);
+        for (int i = 0; i <a.length ; i++) {
+            System.out.println(a[i]);
+        }
+    }
      //分割链表
     public ListNode partition(ListNode head, int x) {
         //分割链表
@@ -67,7 +89,7 @@ public class LeetCode {
         }
         return list;
     }
-    public static void main(String[] args) {
+    public static void main3(String[] args) {
         String s="cbaebabacd";
         String p="abc";
         System.out.println(findAnagrams(s, p));

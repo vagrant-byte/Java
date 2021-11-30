@@ -7,6 +7,39 @@ import java.util.*;
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
   }
 public class LeetCode {
+     //链表相交
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode curA=headA;
+        ListNode curB=headB;
+        int lengthA=0;
+        int lengthB=0;
+        while (curA!=null) {
+            lengthA++;
+            curA=curA.next;
+        }
+        while (curB!=null) {
+            lengthB++;
+            curB=curB.next;
+        }
+        curA=headA;
+        curB=headB;
+        int len=lengthA-lengthB;
+        if(lengthA<lengthB) {
+            curA=headB;
+            curB=headA;
+            len=lengthB-lengthA;
+        }
+        while (len!=0) {
+            curA=curA.next;
+            len--;
+        }
+        while (curA!=null&&curB!=null&&curA!=curB) {
+            curA=curA.next;
+            curB=curB.next;
+        }
+        return curA;
+
+    }
      //第K个最小的素数分数
     public static int[] kthSmallestPrimeFraction(int[] arr, int k) {
         List<int[]> res=new ArrayList<>();

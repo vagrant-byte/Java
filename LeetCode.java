@@ -7,6 +7,88 @@ import java.util.*;
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
   }
 public class LeetCode {
+     //回文链表
+    public boolean isPalindrome(ListNode head) {
+        ListNode node1=head;
+        ListNode node2=head;
+        Stack<Integer> stack=new Stack<>();
+        while (node1!=null) {
+            stack.push(node1.val);
+            node1=node1.next;
+        }
+        while (node2!=null) {
+            if(node2.val==stack.peek()) {
+                stack.pop();
+            } else {
+                return false;
+            }
+            node2=node2.next;
+        }
+        return true;
+
+    }
+     //用栈实现队列
+//     Stack<Integer> stack1=new Stack<>();
+//     Stack<Integer> stack2=new Stack<>();
+//    public void push(int x) {
+//        stack1.push(x);
+//    }
+//
+//    /** Removes the element from in front of queue and returns that element. */
+//    public int pop() {
+//        if(stack1.isEmpty()&&stack2.isEmpty()) {
+//            return -1;
+//        } else if(stack2.isEmpty()) {
+//            while (!stack1.isEmpty()) {
+//                int tmp=stack1.peek();
+//                stack1.pop();
+//                stack2.push(tmp);
+//            }
+//        }
+//        int tmp=stack2.peek();
+//        stack2.pop();
+//        return tmp;
+//    }
+//
+//    /** Get the front element. */
+//    public int peek() {
+//        if(stack1.isEmpty()&&stack2.isEmpty()) {
+//            return -1;
+//        } else if(stack2.isEmpty()) {
+//            while (!stack1.isEmpty()) {
+//                int tmp=stack1.peek();
+//                stack1.pop();
+//                stack2.push(tmp);
+//            }
+//        }
+//        return stack2.peek();
+//
+//    }
+//
+//    /** Returns whether the queue is empty. */
+//    public boolean empty() {
+//        return stack1.isEmpty()&&stack2.isEmpty();
+//
+//    }
+    //连续字符
+    public static int maxPower(String s) {
+        int max=1;
+        int count=1;
+        for (int i = 1; i <s.length() ; i++) {
+            if(s.charAt(i)==s.charAt(i-1)) {
+                count++;
+            } else {
+                max=Math.max(max,count);
+                count=1;
+            }
+        }
+        return Math.max(max,count);
+    }
+
+    public static void main(String[] args) {
+        String s="abbcccddddeeeeedcba";
+        System.out.println(maxPower(s));
+    }
      //链表相交
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         ListNode curA=headA;
@@ -38,7 +120,6 @@ public class LeetCode {
             curB=curB.next;
         }
         return curA;
-
     }
      //第K个最小的素数分数
     public static int[] kthSmallestPrimeFraction(int[] arr, int k) {
@@ -54,7 +135,7 @@ public class LeetCode {
 
     }
 
-    public static void main(String[] args) {
+    public static void main4(String[] args) {
         int[] arr={1,2,3,5};
         int k=3;
         int[] a=kthSmallestPrimeFraction(arr, k);

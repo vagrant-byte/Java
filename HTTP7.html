@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>冒泡+快速排序 </title>
+</head>
+<body>
+<script>
+    function bubbleSort(arr) {
+        for (let i=0;i<arr.length-1;i++) {
+            for (let j=0;j<arr.length-i-1;j++) {
+                if(arr[j]>arr[j+1]) {
+                    let tmp=arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=tmp;
+                }
+            }
+        }
+        return arr;
+    }
+    let arr=[2,1,3,5,2,6,5];
+    let result=bubbleSort(arr);
+    console.log(result);
+</script>
+<script>
+    function swap(arr,low,high) {
+        let tmp=arr[low];
+        arr[low]=arr[high];
+        arr[high]=tmp;
+        return arr;
+    }
+    function quickSort(arr,low,high) {
+        let key=arr[low];
+        let start=low;
+        let end=high;
+        while (end>start) {
+            while (end>start&&arr[end]>=key) {
+                end--;
+            }
+            swap(arr,start,end);
+            while (end>start&&arr[start]<=key) {
+                start++;
+            }
+            swap(arr,start,end);
+        }
+        if(start>low) {
+            quickSort(arr,low,start-1);
+        }
+        if(end<high) {
+            quickSort(arr,end+1,high);
+        }
+        return arr;
+    }
+    let arr=[2,3,1,2,4,5];
+    console.log(quickSort(arr,0,arr.length-1));
+</script>
+<!--<script>-->
+<!--    function quickSort(arr) {-->
+<!--        quickSortHelper(arr,0,arr.length-1);-->
+<!--        return arr;-->
+<!--    }-->
+<!--    function quickSortHelper(arr, left, right) {-->
+<!--        if (left > right) {-->
+<!--            return;-->
+<!--        }-->
+<!--        let index = partition(arr, left, right);-->
+<!--        quickSortHelper(arr, 0, index - 1);-->
+<!--        quickSortHelper(arr, index, right);-->
+<!--        return;-->
+<!--    }-->
+<!--    function partition(arr, left, right) {-->
+<!--        let i=left;-->
+<!--        let j=right;-->
+<!--        let tmp=arr[left];-->
+<!--        while (i<j) {-->
+<!--            while (i<j&&arr[i]<=tmp) {-->
+<!--                i++;-->
+<!--            }-->
+<!--            while (i<j&&arr[j]>=tmp) {-->
+<!--                j&#45;&#45;;-->
+<!--            }-->
+<!--            swap(arr,left,right);-->
+<!--        }-->
+<!--        swap(arr,i,left);-->
+<!--        return i;-->
+<!--    }-->
+<!--    function swap(arr,left,right) {-->
+<!--            let tmp=arr[left];-->
+<!--            arr[left]=arr[right];-->
+<!--            arr[right]=tmp;-->
+<!--            return arr;-->
+<!--    }-->
+
+
+
+
+<!--    let arr=[1,3,2,1,4,5,6];-->
+<!--    let result=quickSort(arr);-->
+<!--    console.log(result);-->
+
+<!--</script>-->
+<!--<script>-->
+<!--    function swap(arr,left,right) {-->
+<!--        let tmp=arr[left];-->
+<!--        arr[left]=arr[right];-->
+<!--        arr[right]=tmp;-->
+<!--    }-->
+<!--    function quickSort(arr,left,right) {-->
+<!--        let key=arr[left];-->
+<!--        let start=left;-->
+<!--        let end=right;-->
+<!--        while (start<end) {-->
+<!--            while (start<end&&arr[start]<=key) {-->
+<!--                start++;-->
+<!--            }-->
+<!--            swap(arr,start,end);-->
+<!--            while (start<end&&arr[end]>=key) {-->
+<!--                end&#45;&#45;;-->
+<!--            }-->
+<!--            swap(arr,start,end);-->
+<!--        }-->
+<!--        if(start>left) {-->
+<!--            quickSort(arr,left,start+1);-->
+<!--        }-->
+<!--        if(end<right) {-->
+<!--            quickSort(arr,end+1,right);-->
+<!--        }-->
+<!--        return arr;-->
+<!--    }-->
+<!--    let arr=[1,3,2,2,1,4,2];-->
+<!--    let result=quickSort(arr,0,arr.length-1);-->
+<!--    console.log(result);-->
+<!--</script>-->
+</body>
+
+</html>

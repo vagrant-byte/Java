@@ -7,6 +7,32 @@ import java.util.*;
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
   }
 public class LeetCode {
+     //相对名次
+    public static String[] findRelativeRanks(int[] score) {
+        String[] place=new String[]{"Cold Medal","Silver Medal","Bronze Medal"};
+        String[] res=new String[score.length];
+        PriorityQueue<Integer> queue = new PriorityQueue<>((o1,o2) ->{
+            return score[o2] - score[o1];
+        });
+        for (int i = 0; i <score.length ; i++) {
+            queue.add(i);
+        }
+        for(int i = 0; i < score.length; i++){
+            int x = queue.poll();
+            if(i < 3){
+                res[x] = place[i];
+            }
+            else{
+                res[x] = Integer.toString(i+1);
+            }
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        int[] a={5,4,3,2,1};
+        findRelativeRanks(a);
+    }
      //回文链表
     public boolean isPalindrome(ListNode head) {
         ListNode node1=head;
@@ -85,7 +111,7 @@ public class LeetCode {
         return Math.max(max,count);
     }
 
-    public static void main(String[] args) {
+    public static void main5(String[] args) {
         String s="abbcccddddeeeeedcba";
         System.out.println(maxPower(s));
     }

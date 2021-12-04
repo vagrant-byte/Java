@@ -7,6 +7,48 @@ import java.util.*;
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
   }
 public class LeetCode {
+     //k次取反后最大化的数组和
+    public static int largestSumAfterKNegations(int[] nums, int k) {
+        Arrays.sort(nums);
+        int sum=0;
+        for (int i = 0; i <nums.length && k>0; i++,k--) {
+            if(nums[i]>=0) {
+                break;
+            }
+            nums[i]=-nums[i];
+        }
+        Arrays.sort(nums);
+        for (int i = 0; i <nums.length ; i++) {
+            sum+=nums[i];
+        }
+        if(k!=0&&k%2!=0) {
+            sum-=2*nums[0];
+        }
+        return sum;
+    }
+
+    public static void main(String[] args) {
+        int[] a={4,3,2};
+        System.out.println(largestSumAfterKNegations(a, 1));
+    }
+     //赎金信
+    public boolean canConstruct(String ransomNote, String magazine) {
+        if(ransomNote.length()>magazine.length()) {
+            return false;
+        }
+        int[] nums=new int[26];
+        for (int i = 0; i <magazine.length() ; i++) {
+            nums[magazine.charAt(i)-'a']++;
+        }
+        for (int i = 0; i <ransomNote.length() ; i++) {
+            nums[ransomNote.charAt(i)-'a']--;
+            if(nums[ransomNote.charAt(i)-'a']<0) {
+                return false;
+            }
+        }
+        return true;
+
+    }
      //相对名次
     public static String[] findRelativeRanks(int[] score) {
         String[] place=new String[]{"Cold Medal","Silver Medal","Bronze Medal"};
@@ -29,7 +71,7 @@ public class LeetCode {
         return res;
     }
 
-    public static void main(String[] args) {
+    public static void main6(String[] args) {
         int[] a={5,4,3,2,1};
         findRelativeRanks(a);
     }

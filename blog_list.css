@@ -1,0 +1,39 @@
+.blog {
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+}
+.blog .title {
+    color: black;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    padding: 10px 0;
+}
+.blog .date {
+    color:salmon;
+    text-align: center;
+    padding: 5px 0;
+}
+.blog .desc {
+    text-indent: 2em;
+}
+.blog .detail {
+    display: block;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    margin: 10px auto;
+    /*边框*/
+    border: 2px solid black;
+    color: black;
+    text-decoration: none;
+    /*设置过度*/
+    transition: all 0.5s;
+}
+/*设置鼠标悬停的效果*/
+.blog .detail:hover {
+    background-color: black;
+    color: white;
+}

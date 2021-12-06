@@ -7,6 +7,55 @@ import java.util.*;
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
   }
 public class LeetCode {
+     //汉诺塔问题
+    public void hanota(List<Integer> A, List<Integer> B, List<Integer> C) {
+        move(A.size(),A,B,C);
+    }
+
+    private void move(int size, List<Integer> a, List<Integer> b, List<Integer> c) {
+        if(size==1) {
+            c.add(a.remove(a.size()-1));
+            return;
+        } else {
+           move(size-1,a,c,b);
+           c.add(a.remove(a.size()-1));
+           move(size-1,b,a,c);
+        }
+    }
+
+    //魔术索引
+    public static int findMagicIndex(int[] nums) {
+        for (int i = 0; i <nums.length ; i++) {
+            if (nums[i]==i) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static void main(String[] args) {
+        int[] a=new int[]{0,2,3,4,5};
+        System.out.println(findMagicIndex(a));
+    }
+     //截断句子
+    public static String truncateSentence(String s, int k) {
+        if(k<=0||k>s.length()) {
+            return "";
+        }
+        String[] res=s.split(" ");
+        StringBuilder stringBuilder=new StringBuilder();
+        for (int i = 0; i <k-1 ; i++) {
+            stringBuilder.append(res[i]+" ");
+        }
+        stringBuilder.append(res[k-1]);
+        return stringBuilder.toString();
+    }
+
+    public static void main8(String[] args) {
+        String s="hello how are you contest";
+        int k=4;
+        System.out.println(truncateSentence(s, k));
+    }
      //k次取反后最大化的数组和
     public static int largestSumAfterKNegations(int[] nums, int k) {
         Arrays.sort(nums);
@@ -27,7 +76,7 @@ public class LeetCode {
         return sum;
     }
 
-    public static void main(String[] args) {
+    public static void main7(String[] args) {
         int[] a={4,3,2};
         System.out.println(largestSumAfterKNegations(a, 1));
     }

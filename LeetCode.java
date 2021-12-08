@@ -1,5 +1,29 @@
 import java.util.*;
  class ListNode {
+     //合并排序的数组
+     public static void merge(int[] A, int m, int[] B, int n) {
+        int k=m+n-1;
+        int i=m-1;
+        int j=n-1;
+        while (i>=0&&j>=0) {
+            if(A[i]>B[j]) {
+                A[k--]=A[i--];
+            } else {
+                A[k--]=B[j--];
+            }
+        }
+        while (j>=0) {
+            A[k--]=B[j--];
+        }
+     }
+
+     public static void main(String[] args) {
+         int[] A={1,2,3,0,0,0};
+         int[] B={2,5,6};
+         int m=3;
+         int n=3;
+         merge(A,m,B,n);
+     }
      //跳跃游戏
      public boolean canJump(int[] nums) {
          if(nums.length<=1) {
@@ -79,7 +103,7 @@ public class LeetCode {
         return -1;
     }
 
-    public static void main(String[] args) {
+    public static void main9(String[] args) {
         int[] a=new int[]{0,2,3,4,5};
         System.out.println(findMagicIndex(a));
     }

@@ -1,5 +1,64 @@
 import java.util.*;
  class ListNode {
+     //有效的井字游戏
+     public boolean validTicTacToe(String[] board) {
+        int numX=0;
+        int numO=0;
+        char[][] boards=new char[3][3];
+         for (int i = 0; i <board.length ; i++) {
+             String s=board[i];
+             for (int j = 0; j <s.length() ; j++) {
+                 if(s.charAt(j)=='X') {
+                     numX++;
+                     boards[i][j]='X';
+                 } else if(s.charAt(j)=='O') {
+                     numO++;
+                     boards[i][j]='O';
+                 } else {
+                     boards[i][j]=' ';
+                 }
+             }
+         }
+         if(numX>numO+1||numX<numO) {
+             return false;
+         }
+         boolean wina=hasOneLine(boards,'X');
+         boolean winb=hasOneLine(boards,'O');
+         if(numX==numO+1) {
+             if(winb&&!wina||wina&&winb) {
+                 return false;
+             }
+             return true;
+         }
+         if(numX==numO) {
+             if(wina&&!winb||wina&&winb) {
+                 return false;
+             }
+             return true;
+         }
+         return false;
+
+
+     }
+
+     private boolean hasOneLine(char[][] boards, char x) {
+         for (int i = 0; i <3 ; i++) {
+             if(boards[i][0]==x&&boards[i][0]==boards[i][1]&&boards[i][1]==boards[i][2]) {
+                 return true;
+             }
+             if(boards[0][i]==x&&boards[0][i]==boards[1][i]&&boards[1][i]==boards[2][i]) {
+                 return true;
+             }
+         }
+         if(boards[0][0]==x&&boards[0][0]==boards[1][1]&&boards[1][1]==boards[2][2]) {
+             return true;
+         }
+         if(boards[0][2]==x&&boards[0][2]==boards[1][1]&&boards[1][1]==boards[2][0]) {
+             return true;
+         }
+         return false;
+     }
+
      //合并排序的数组
      public static void merge(int[] A, int m, int[] B, int n) {
         int k=m+n-1;

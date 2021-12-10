@@ -1,5 +1,69 @@
 import java.util.*;
  class ListNode {
+     public String shortestCompletingWord1(String licensePlate, String[] words) {String res="";
+         int[] cnt = new int[26];
+         for (int i = 0; i < licensePlate.length(); ++i) {
+             char ch = licensePlate.charAt(i);
+             if (Character.isLetter(ch)) {
+                 ++cnt[Character.toLowerCase(ch) - 'a'];
+             }
+         }
+         int idx = -1;
+         for (int i = 0; i < words.length; ++i) {
+             int[] c = new int[26];
+             for (int j = 0; j < words[i].length(); ++j) {
+                 char ch = words[i].charAt(j);
+                 ++c[ch - 'a'];
+             }
+             boolean ok = true;
+             for (int j = 0; j < 26; ++j) {
+                 if (c[j] < cnt[j]) {
+                     ok = false;
+                     break;
+                 }
+             }
+             if (ok && (idx < 0 || words[i].length() < words[idx].length())) {
+                 idx = i;
+             }
+         }
+         return words[idx];
+
+
+
+     }
+
+     //最短补全词
+     public static String shortestCompletingWord(String licensePlate, String[] words) {
+         String res="";
+         for (int i = 0; i <licensePlate.length() ; i++) {
+             if(licensePlate.charAt(i)>='A'&&licensePlate.charAt(i)<='Z') {
+                 res+=licensePlate.charAt(i)-'A'+'a';
+             }
+             if(licensePlate.charAt(i)>='a'&&licensePlate.charAt(i)<='z') {
+                 res+=licensePlate.charAt(i);
+             }
+         }
+
+         String[] list=new String[words.length];
+         int count=0;
+         for (int i = 0; i <words.length ; i++) {
+             if(words[i].contains(res)) {
+                 list[count]=words[i];
+                 count++;
+             }
+         }
+         Arrays.sort(list);
+         return list[0];
+
+     }
+
+     public static void main(String[] args) {
+         String li="1s3 PSt";
+         String[] word={"step","steps","stripe","stepple"};
+         System.out.println(shortestCompletingWord(li, word));
+
+
+     }
      //有效的井字游戏
      public boolean validTicTacToe(String[] board) {
         int numX=0;
@@ -24,13 +88,20 @@ import java.util.*;
          }
          boolean wina=hasOneLine(boards,'X');
          boolean winb=hasOneLine(boards,'O');
+         //1、X必须比O多1个或者相同，否则false；
+         // 2、X和O不能同时都是赢家，否则false；
+         // 3、X赢的时候必须比O多1个，否则false；
+         // 4、O赢得时候个数与X相同，否则false；
+         //其他的都是true
          if(numX==numO+1) {
+             //X与O同时赢返回false X比O多一且输了返回false
              if(winb&&!wina||wina&&winb) {
                  return false;
              }
              return true;
          }
          if(numX==numO) {
+             //O输了返回false
              if(wina&&!winb||wina&&winb) {
                  return false;
              }
@@ -76,7 +147,7 @@ import java.util.*;
         }
      }
 
-     public static void main(String[] args) {
+     public static void main9(String[] args) {
          int[] A={1,2,3,0,0,0};
          int[] B={2,5,6};
          int m=3;

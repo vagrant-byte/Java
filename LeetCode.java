@@ -1,5 +1,37 @@
 import java.util.*;
  class ListNode {
+     //转换大小写
+     //大写变小写、小写变大写 : 字符 ^= 32;
+     //大写变小写、小写变小写 : 字符 |= 32;
+     //小写变大写、大写变大写 : 字符 &= -33;
+     public String toLowerCase1(String s) {
+         char[] chars=s.toCharArray();
+         for (int i = 0; i <s.length() ; i++) {
+             if(chars[i]>='A'&&chars[i]<='Z') {
+                 chars[i]|=32;
+             }
+         }
+         String s1="";
+         for (int i = 0; i <chars.length ; i++) {
+             s1+=chars[i];
+         }
+         return s1;
+     }
+     public String toLowerCase(String s) {
+         if(s==null||s.length()==0) {
+             return null;
+         }
+         StringBuilder stringBuilder=new StringBuilder();
+         for (int i = 0; i <s.length() ; i++) {
+             if(s.charAt(i)>='A'&&s.charAt(i)<='Z') {
+                 stringBuilder.append((char) (s.charAt(i)+32));
+             } else {
+                 stringBuilder.append(s.charAt(i));
+             }
+         }
+         return stringBuilder.toString();
+
+     }
      public String shortestCompletingWord1(String licensePlate, String[] words) {String res="";
          int[] cnt = new int[26];
          for (int i = 0; i < licensePlate.length(); ++i) {

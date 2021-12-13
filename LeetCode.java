@@ -1,5 +1,26 @@
 import java.util.*;
  class ListNode {
+     //保持城市天际线
+     public int maxIncreaseKeepingSkyline(int[][] grid) {
+         int n=grid.length;
+         int[] rowMax=new int[n];//每一行的最大高度
+         int[] colMax=new int[n];//每一列的最大高度
+         for (int i = 0; i <n ; i++) {
+             for (int j = 0; j <n ; j++) {
+                 rowMax[i]=Math.max(rowMax[i],grid[i][j]);
+                 colMax[j]=Math.max(colMax[j],grid[i][j]);
+             }
+         }
+         int res=0;
+         for (int i = 0; i <n ; i++) {
+             for (int j = 0; j <n ; j++) {
+                 //加行的最大值与列的最大值中较小的一个减去原来的值
+                 res+=Math.min(rowMax[i],colMax[j])-grid[i][j];
+             }
+         }
+         return res;
+
+     }
      //转换大小写
      //大写变小写、小写变大写 : 字符 ^= 32;
      //大写变小写、小写变小写 : 字符 |= 32;

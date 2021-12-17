@@ -1,5 +1,20 @@
 import java.util.*;
  class ListNode {
+     //换酒问题
+     public static int numWaterBottles(int numBottles, int numExchange) {
+         int ans=0;
+         int wine=numBottles;
+         while (numBottles>=numExchange) {
+             ans+=wine;
+             wine=numBottles/numExchange;
+             numBottles-=(numExchange-1)*wine;
+         }
+         ans+=wine;
+         return ans;
+     }
+     public static void main(String[] args) {
+         System.out.println(numWaterBottles(17, 3));
+     }
      //盛最多水的容器
      public int maxArea(int[] height) {
          int left=0;
@@ -178,9 +193,6 @@ import java.util.*;
              }
          }
          return words[idx];
-
-
-
      }
 
      //最短补全词
@@ -208,7 +220,7 @@ import java.util.*;
 
      }
 
-     public static void main(String[] args) {
+     public static void main10(String[] args) {
          String li="1s3 PSt";
          String[] word={"step","steps","stripe","stepple"};
          System.out.println(shortestCompletingWord(li, word));

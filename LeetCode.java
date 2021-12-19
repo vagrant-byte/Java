@@ -1,6 +1,58 @@
 import java.util.*;
  class ListNode {
+     //数组中的第k大数字
+     public int findKthLargest(int[] nums, int k) {
+         Arrays.sort(nums);
+         int i=nums.length-k;
+         return nums[i];
+
+
+     }
+     //甲板上的战舰
+     public int countBattleships(char[][] board) {
+         int ans=0;
+         for (int i = 0; i <board.length ; i++) {
+             for (int j = 0; j <board[0].length ; j++) {
+                 if(board[i][j]=='.') continue;
+                 if(i>0&&board[i-1][j]=='X') continue;
+                 if(j>0&&board[i][j-1]=='X') continue;
+                 ans++;
+             }
+         }
+         return ans;
+
+     }
+     //小镇法官
+     public int findJudge(int n, int[][] trust) {
+         int[] inTrust=new int[n+1];
+         int[] outTrust=new int[n+1];
+         for (int[] a:trust) {
+             int x=a[0];
+             int y=a[1];
+             inTrust[y]++;
+             outTrust[x]++;
+         }
+         for (int i = 1; i <=n ; i++) {
+             if(inTrust[i]==n-1&&outTrust[i]==0) {
+                 return i;
+             }
+         }
+         return -1;
+     }
      //换酒问题
+     public int numWaterBottles1(int n, int m) {
+         int ans=n;
+         while (n>=m) {
+             //可以换几瓶酒
+             int a=n/m;
+             //剩下的没有换完的酒
+             int b=n%m;
+             ans+=a;
+             //换酒后的空瓶加剩下的不能换酒的空瓶
+             n=a+b;
+         }
+         return ans;
+     }
      public static int numWaterBottles(int numBottles, int numExchange) {
          int ans=0;
          int wine=numBottles;

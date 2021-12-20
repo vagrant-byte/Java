@@ -1,5 +1,85 @@
 import java.util.*;
  class ListNode {
+     //供暖器
+//     public int findRadius(int[] houses, int[] heaters) {
+//         Arrays.sort(houses);
+//         Arrays.sort(heaters);
+//         int left=0;
+//         int right=Math.max(houses[houses.length-1],heaters[heaters.length-1]);
+//         while (left<right) {
+//             int mid=(left+right)/2;
+//             if(check(houses,heaters,mid)) {
+//                 right=mid;
+//             } else {
+//                 left=mid+1;
+//             }
+//         }
+//         return right;
+//     }
+//
+//     private boolean check(int[] houses, int[] heaters, int mid) {
+//         for (int i = 0,j=0; i <houses.length ; i++) {
+//             //
+//             while (j<heaters.length&&heaters[j]+mid<houses[i]) {
+//                 j++;
+//             }
+//             if(j<heaters.length&&heaters[j]-mid<=houses[i]&&houses[i]<=heaters[j]+mid) {
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
+
+     //删除公共字符
+     public static void main(String[] args) {
+         Scanner scanner=new Scanner(System.in);
+         String str1=scanner.nextLine();
+         String str2=scanner.nextLine();
+         StringBuilder stringBuilder=new StringBuilder();
+         for (int i = 0; i <str1.length() ; i++) {
+             if(!str2.contains(str1.charAt(i)+"")) {
+                 stringBuilder.append(str1.charAt(i));
+             }
+         }
+         System.out.println(stringBuilder.toString());
+//         Scanner scanner=new Scanner(System.in);
+//         String str1=scanner.nextLine();
+//         String str2=scanner.nextLine();
+//         HashMap<Character,Integer> map=new HashMap<>();
+//         //遍历第二个字符串
+//         for (int i = 0; i <str2.length() ; i++) {
+//             //判断当前的字符之前是否存在
+//             if(map.get(str2.charAt(i))==null) {
+//                 map.put(str2.charAt(i),1);
+//             } else {
+//                 map.put(str2.charAt(i),map.get(str2.charAt(i))+1);
+//             }
+//         }
+//         String ret="";
+//         //遍历第一个字符串
+//         for (int i = 0; i <str1.length() ; i++) {
+//             if(map.get(str1.charAt(i))==null) {
+//                 ret+=str1.charAt(i);
+//             }
+//         }
+//         System.out.println(ret);
+
+//         Scanner scanner=new Scanner(System.in);
+//         String str1=scanner.nextLine();
+//         String str2=scanner.nextLine();
+//         int[] hashtable=new int[256];
+//         for (int i = 0; i <str2.length() ; i++) {
+//             hashtable[str2.charAt(i)]++;
+//         }
+//         StringBuilder stringBuilder=new StringBuilder();
+//         for (int i = 0; i <str1.length() ; i++) {
+//             if(hashtable[str1.charAt(i)]==0) {
+//                 stringBuilder.append(str1.charAt(i));
+//             }
+//         }
+//         System.out.println(stringBuilder.toString());
+
+     }
      //数组中的第k大数字
      public int findKthLargest(int[] nums, int k) {
          Arrays.sort(nums);
@@ -64,7 +144,9 @@ import java.util.*;
          ans+=wine;
          return ans;
      }
-     public static void main(String[] args) {
+     public static void main11(String[] args) {
+         Scanner scanner=new Scanner(System.in);
+         int n=scanner.nextInt();
          System.out.println(numWaterBottles(17, 3));
      }
      //盛最多水的容器

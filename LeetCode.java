@@ -1,5 +1,32 @@
+import com.sun.javafx.image.impl.BaseByteToIntConverter;
+
 import java.util.*;
  class ListNode {
+     //一年中的第几天
+     public static int dayOfYear(String date) {
+         int year= Integer.parseInt(date.substring(0,4));
+         int[] dayOfMonth=new int[]{31,28,31,30,31,30,31,31,30,31,30,31};
+         if((year%400==0)||(year%4==0&&year%100!=0)) {
+             dayOfMonth[1]=29;
+         }
+         System.out.println(year);
+         int month=Integer.parseInt(date.substring(5,7));
+         System.out.println(month);
+         int day=Integer.parseInt(date.substring(8,10));
+         System.out.println(day);
+         System.out.println(dayOfMonth[1]);
+         int res=0;
+         for (int i = 0; i <month-1 ; i++) {
+             res+=dayOfMonth[i];
+             System.out.println(res);
+         }
+         return res+day;
+     }
+
+     public static void main(String[] args) {
+         String s="2008-10-10";
+         System.out.println(dayOfYear(s));
+     }
      //供暖器
 //     public int findRadius(int[] houses, int[] heaters) {
 //         Arrays.sort(houses);
@@ -31,7 +58,7 @@ import java.util.*;
 //     }
 
      //删除公共字符
-     public static void main(String[] args) {
+     public static void main12(String[] args) {
          Scanner scanner=new Scanner(System.in);
          String str1=scanner.nextLine();
          String str2=scanner.nextLine();

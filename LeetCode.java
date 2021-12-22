@@ -2,6 +2,89 @@ import com.sun.javafx.image.impl.BaseByteToIntConverter;
 
 import java.util.*;
  class ListNode {
+     //重复叠加字符串匹配
+     public static int repeatedStringMatch1(String a, String b) {
+         String tmp=a;
+         int count=1;
+         int midRepCnt=b.length()/a.length();
+         while (count<=midRepCnt+2) {
+             if (tmp.indexOf(b)!=-1) {
+                 return count;
+             }
+             tmp+=a;
+             count++;
+         }
+         return -1;
+     }
+     public static int repeatedStringMatch(String a, String b) {
+         //去除a中重复的字符
+         String res="";
+         LinkedHashSet<String> linkedHashSet=new LinkedHashSet<>();
+         for (int i = 0; i <a.length() ; i++) {
+             linkedHashSet.add(a.charAt(i)+"");
+         }
+         for (String s:linkedHashSet) {
+             res+=s;
+         }
+         //字符串a与b相同
+         if(a==b) {
+             return 1;
+         } else if(a.length()>b.length()) {
+             //a串比b串长，当a串中包含b返回1，否则返回-1
+             if(res.indexOf(b)!=-1&&res.charAt(0)!=b.charAt(0)) {
+                 int count=0;
+                 int num=0;
+                 //判断b的第一个字符在a串中的位置，从而判断a拼接的次数
+                 for (int i = 0; i <a.length() ; i++) {
+                     if(a.charAt(i)==b.charAt(0)) {
+                         num=i;
+                     }
+                 }
+                return b.length()/res.length()+num;
+             } else if(a.indexOf(b)!=-1&&res.charAt(0)==b.charAt(0)) {
+                 return 1;
+             } else {
+                 return -1;
+             }
+         } else {
+             String tmp="";
+             int count=0;
+             int num=0;
+             //判断b的第一个字符在a串中的位置，从而判断a拼接的次数
+             for (int i = 0; i <a.length() ; i++) {
+                 if(a.charAt(i)==b.charAt(0)) {
+                     num=i;
+                 }
+             }
+             if(num!=0&&b.length()%a.length()!=0) {
+                 for (int i = 0; i <b.length()/a.length()+num ; i++) {
+                     tmp+=a;
+                     count++;
+                 }
+             } else if(num!=0&&b.length()%a.length()==0) {
+                 for (int i = 0; i <b.length()/a.length()+num-1 ; i++) {
+                     tmp+=a;
+                     count++;
+                 }
+             } else {
+                 for (int i = 0; i <b.length()/a.length() ; i++) {
+                     tmp+=a;
+                     count++;
+                 }
+             }
+             if(tmp.indexOf(b)!=-1) {
+                 return count;
+             } else {
+                 return -1;
+             }
+         }
+     }
+
+     public static void main(String[] args) {
+         String a="aaaaaaaaaaaab";
+         String b="ba";
+         System.out.println(repeatedStringMatch(a, b));
+     }
      //一年中的第几天
      public static int dayOfYear(String date) {
          int year= Integer.parseInt(date.substring(0,4));
@@ -23,7 +106,7 @@ import java.util.*;
          return res+day;
      }
 
-     public static void main(String[] args) {
+     public static void main13(String[] args) {
          String s="2008-10-10";
          System.out.println(dayOfYear(s));
      }

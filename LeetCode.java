@@ -4,15 +4,33 @@ import java.util.*;
  class ListNode {
      //重复叠加字符串匹配
      public static int repeatedStringMatch1(String a, String b) {
-         String tmp=a;
-         int count=1;
-         int midRepCnt=b.length()/a.length();
-         while (count<=midRepCnt+2) {
-             if (tmp.indexOf(b)!=-1) {
-                 return count;
+//         String tmp=a;
+//         int count=1;
+//         int midRepCnt=b.length()/a.length();
+//         while (count<=midRepCnt+2) {
+//             if (tmp.indexOf(b)!=-1) {
+//                 return count;
+//             }
+//             tmp+=a;
+//             count++;
+//         }
+//         return -1;
+         boolean[] arr=new boolean[26];
+         for (int i = 0; i <a.length() ; i++) {
+             arr[a.charAt(i)-'a']=true;
+         }
+         for (int i = 0; i <b.length() ; i++) {
+             if(!arr[b.charAt(i)-'a']) {
+                 return -1;
              }
-             tmp+=a;
-             count++;
+         }
+         StringBuilder stringBuilder=new StringBuilder();
+         int count=b.length()/a.length();
+         for (int i = 0; i <=2 ; i++) {
+             if(a.indexOf(b)>=0) {
+                 return count+i;
+             }
+             stringBuilder.append(a);
          }
          return -1;
      }

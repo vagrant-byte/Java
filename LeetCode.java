@@ -2,6 +2,43 @@ import com.sun.javafx.image.impl.BaseByteToIntConverter;
 
 import java.util.*;
  class ListNode {
+     public static void main(String[] args) {
+         int [] arr=new int[]{6,-3,-2};
+         int sumMax=0;
+         for (int i = 0; i <arr.length ; i++) {
+             int cur=0;
+             for (int j = i; j <arr.length; j++) {
+                 cur+=arr[j];
+                 if (cur>sumMax) {
+                     sumMax=cur;
+                 }
+             }
+         }
+         System.out.println(sumMax);
+     }
+
+     //吃苹果的最大数目
+     public int eatenApples(int[] apples, int[] days) {
+         int sum=0;
+         int max=days[1];
+         for (int i = 1; i <days.length ; i++) {
+             if(max<days[i]) {
+                 max=days[i];
+             }
+         }
+         for (int i = 0; i <apples.length ; i++) {
+             if(apples[i]<=days[i]&&apples[i]!=0&&days[i]!=0) {
+                 sum+=1;
+             } else if (apples[i]!=0&&days[i]!=0){
+                 sum+=days[i];
+                 if(days[i]==max) {
+                     break;
+                 }
+
+             }
+         }
+         return sum;
+     }
      //重复叠加字符串匹配
      public static int repeatedStringMatch1(String a, String b) {
 //         String tmp=a;
@@ -98,7 +135,7 @@ import java.util.*;
          }
      }
 
-     public static void main(String[] args) {
+     public static void main15(String[] args) {
          String a="aaaaaaaaaaaab";
          String b="ba";
          System.out.println(repeatedStringMatch(a, b));

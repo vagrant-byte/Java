@@ -2,6 +2,20 @@ import com.sun.javafx.image.impl.BaseByteToIntConverter;
 
 import java.util.*;
  class ListNode {
+     //Bigram分词
+     public String[] findOcurrences(String text, String first, String second) {
+         List<String> list=new ArrayList<>();
+         if(text.length()<=2) {
+             return new String[]{};
+         }
+         String[] tmp=text.split(" ");
+         for (int i = 1; i <tmp.length-1 ; i++) {
+             if(tmp[i-1].equals(first)&&tmp[i].equals(second)) {
+                 list.add(tmp[i+1]);
+             }
+         }
+         return list.toArray(new String[0]);
+     }
      public static void main(String[] args) {
          int [] arr=new int[]{6,-3,-2};
          int sumMax=0;

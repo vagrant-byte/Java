@@ -2,6 +2,27 @@ import com.sun.javafx.image.impl.BaseByteToIntConverter;
 
 import java.util.*;
  class ListNode {
+     //适龄的朋友
+     public int numFriendRequests(int[] ages) {
+         int left=0;
+         int right=0;
+         int res=0;
+         Arrays.sort(ages);
+         for (int i = 0; i <ages.length ; i++) {
+             if(ages[i]<15) {
+                 continue;
+             }
+             while (ages[left]<=0.5*ages[i]+7) {
+                 left++;
+             }
+             while (right+1<ages.length&&ages[right+1]<=ages[i]) {
+                 right++;
+             }
+             res+=right-left;
+         }
+         return res;
+
+     }
      //Bigram分词
      public String[] findOcurrences(String text, String first, String second) {
          List<String> list=new ArrayList<>();

@@ -2,6 +2,58 @@ import com.sun.javafx.image.impl.BaseByteToIntConverter;
 
 import java.util.*;
  class ListNode {
+     //括号匹配问题
+     public boolean chkParenthesis(String A, int n) {
+         // write code here
+         if(n%2!=0) {
+             return false;
+         }
+         Stack<Character> stack=new Stack<>();
+         for (int i = 0; i <n ; i++) {
+             if(A.charAt(i)=='(') {
+                 stack.push('(');
+             } else if(A.charAt(i)==')') {
+                 stack.pop();
+             }
+         }
+         if(stack.isEmpty()) {
+             return true;
+         } else {
+             return false;
+         }
+     }
+     //连接词
+     public static List<String> findAllConcatenatedWordsInADict(String[] words) {
+         List<String> list=new ArrayList<>();
+         if(words.length<=2) {
+             return list;
+         }
+         for (String s:words) {
+             Map<Character,Integer> map=new HashMap<>();
+             for (int i = 0; i <s.length() ; i++) {
+                 if(map.containsKey(s.charAt(i))) {
+                     map.put(s.charAt(i),map.get(s.charAt(i)+1));
+                 }else {
+                     map.put(s.charAt(i),1);
+                 }
+             }
+             String tmp="";
+             for (int i = 0; i <map.size() ; i++) {
+                 if(map.get(i)==2) {
+                     tmp+=map.get(i);
+                 }
+             }
+             if (s.compareTo(tmp)!=-1) {
+                 list.add(s);
+             }
+         }
+         return list;
+     }
+
+     public static void main(String[] args) {
+         String[] words=new String[]{"cat","cats","catsgogcats","dog","dogcatsdog","hippoptamuses","rat","ratcatdogcat"};
+         System.out.println(findAllConcatenatedWordsInADict(words));
+     }
      //适龄的朋友
      public int numFriendRequests(int[] ages) {
          int left=0;
@@ -21,7 +73,6 @@ import java.util.*;
              res+=right-left;
          }
          return res;
-
      }
      //Bigram分词
      public String[] findOcurrences(String text, String first, String second) {
@@ -37,7 +88,7 @@ import java.util.*;
          }
          return list.toArray(new String[0]);
      }
-     public static void main(String[] args) {
+     public static void main16(String[] args) {
          int [] arr=new int[]{6,-3,-2};
          int sumMax=0;
          for (int i = 0; i <arr.length ; i++) {

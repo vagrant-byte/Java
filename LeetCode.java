@@ -2,6 +2,32 @@ import com.sun.javafx.image.impl.BaseByteToIntConverter;
 
 import java.util.*;
  class ListNode {
+     //一手顺子
+     public boolean isNStraightHand(int[] hand, int groupSize) {
+         if(hand.length%groupSize!=0) {
+             return false;
+         }
+         //排序
+         Arrays.sort(hand);
+         //使用hash表存储
+         Map<Integer,Integer> map=new HashMap<>();
+         for (int i = 0; i <hand.length ; i++) {
+             map.put(hand[i],map.getOrDefault(hand[i],0)+1);
+         }
+         for (int i = 0; i <hand.length ; i++) {
+             //这张牌已经用完
+             if(map.get(hand[i])==0) {
+                 continue;
+             }
+             for (int j = 0; j <groupSize ; j++) {
+                 if(!map.containsKey(hand[i]+j)||map.get(hand[i]+j)==0) {
+                     return false;
+                 }
+                 map.put(hand[i]+j,map.get(hand[i]+j)-1);
+             }
+         }
+         return true;
+     }
      //统计特殊四元组
      public int countQuadruplets(int[] nums) {
          int count=0;

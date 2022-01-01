@@ -2,6 +2,23 @@ import com.sun.javafx.image.impl.BaseByteToIntConverter;
 
 import java.util.*;
  class ListNode {
+     //将一维数组转变成二维数组
+     public int[][] construct2DArray(int[] original, int m, int n) {
+         int[][] res=new int[m][n];
+         if(m*n!=original.length) {
+             return new int[][]{};
+         }
+         int count=0;
+         for (int i = 0; i <m ; i++) {
+             for (int j = 0; j <n ; j++) {
+                 if(count<original.length) {
+                     res[i][j]=original[count];
+                     count++;
+                 }
+             }
+         }
+         return res;
+     }
      //完美数
      public boolean checkPerfectNumber(int num) {
          int sum=0;

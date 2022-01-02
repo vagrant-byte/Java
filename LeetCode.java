@@ -2,6 +2,14 @@ import com.sun.javafx.image.impl.BaseByteToIntConverter;
 
 import java.util.*;
  class ListNode {
+     //消除游戏
+     public int lastRemaining(int n) {
+         if(n==1) {
+             return 1;
+         }
+         return 2*(n/2+1-lastRemaining(n/2));
+
+     }
      //将一维数组转变成二维数组
      public int[][] construct2DArray(int[] original, int m, int n) {
          int[][] res=new int[m][n];

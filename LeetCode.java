@@ -2,6 +2,25 @@ import com.sun.javafx.image.impl.BaseByteToIntConverter;
 
 import java.util.*;
  class ListNode {
+     //一周中的第几天
+     public String dayOfTheWeek(int day, int month, int year) {
+         int days=4;
+         String[] weeks={"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+         int[] months={31,28,31,30,31,30,31,31,30,31,30,31};
+         for (int i = 1971; i <year ; i++) {
+             boolean isLeap=(i%4==0&&i%100!=0)||i%400==0;
+             days+=isLeap?366:365;
+         }
+         for (int i = 0; i <month-1 ; i++) {
+             days+=months[i];
+             if(i==2&&((year%4==0&&year%100!=0)||year%400==0)) {
+                 days+=1;
+             }
+         }
+         days+=day;
+         return weeks[days&7];
+
+     }
      //消除游戏
      public int lastRemaining(int n) {
          if(n==1) {

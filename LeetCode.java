@@ -1,7 +1,46 @@
 import com.sun.javafx.image.impl.BaseByteToIntConverter;
 
+import java.io.CharArrayWriter;
 import java.util.*;
  class ListNode {
+     //替换所有的问号
+     public String modifyString1(String s) {
+         char[] arr=s.toCharArray();
+         for (int i = 0; i <arr.length ; i++) {
+             if(arr[i]=='?') {
+                 for (char j = 'a'; j <='c' ; j++) {
+                     if((i>0&&arr[i-1]==j)||(i<arr.length-1&&arr[i+1]==j)) {
+                         continue;
+                     }
+                     arr[i]=j;
+                 }
+             }
+         }
+         return new String(arr);
+     }
+     public String modifyString(String s) {
+         char[] chars=new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t'
+                 ,'u','v','w','x','y','z'};
+         Set<Character> set=new HashSet<>();
+         for (int i = 0; i <chars.length ; i++) {
+             set.add(chars[i]);
+         }
+         for(int i=0;i<s.length();i++) {
+             if(s.charAt(i)!='?') {
+                 set.remove(s.charAt(i));
+             }
+         }
+         String s1=set.toString();
+         char[] list=s1.toCharArray();
+         char[] chars1=s.toCharArray();
+         for(int i=0;i<chars.length;i++) {
+             if (chars[i] == '?') {
+                 chars[i] = list[i];
+             }
+         }
+         return new String(chars);
+
+     }
      //一周中的第几天
      public String dayOfTheWeek(int day, int month, int year) {
          int days=4;
@@ -18,7 +57,7 @@ import java.util.*;
              }
          }
          days+=day;
-         return weeks[days&7];
+         return weeks[days%7];
 
      }
      //消除游戏

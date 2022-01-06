@@ -3,6 +3,40 @@ import com.sun.javafx.image.impl.BaseByteToIntConverter;
 import java.io.CharArrayWriter;
 import java.util.*;
  class ListNode {
+     //简化路径
+     public  static String simplifyPath(String path) {
+         // ../返回上一级目录
+         // ./ 当前的目录
+         //  //视为一个/
+         //  /  在结尾
+         //将字符串以/分割，遍历字符串正常文件名入栈，如果是“..”弹出栈顶元素，如果是‘.’不管。最后
+         //在遍历栈，将出栈元素插入到返回字符串的头上同时加上‘/’
+         String[] strings=path.split("/");
+         Stack<String> stack=new Stack<>();
+         for (String s:strings) {
+             if(s.equals("..")&&!stack.isEmpty()) {
+                 stack.pop();
+             }
+             if (!s.equals(".")&&!s.equals("..")&&!s.equals("")) {
+                 stack.push(s);
+             }
+         }
+         StringBuilder stringBuilder=new StringBuilder();
+         while (!stack.isEmpty()) {
+             stringBuilder.insert(0,stack.pop());
+             stringBuilder.insert(0,"/");
+         }
+         if(stringBuilder.length()==0) {
+             stringBuilder.append("/");
+         }
+         return stringBuilder.toString();
+
+     }
+
+     public static void main(String[] args) {
+         String s="/home/";
+         simplifyPath(s);
+     }
      //替换所有的问号
      public String modifyString1(String s) {
          char[] arr=s.toCharArray();
@@ -189,7 +223,7 @@ import java.util.*;
          return list;
      }
 
-     public static void main(String[] args) {
+     public static void main1(String[] args) {
          String[] words=new String[]{"cat","cats","catsgogcats","dog","dogcatsdog","hippoptamuses","rat","ratcatdogcat"};
          System.out.println(findAllConcatenatedWordsInADict(words));
      }

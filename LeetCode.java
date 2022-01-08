@@ -3,6 +3,49 @@ import com.sun.javafx.image.impl.BaseByteToIntConverter;
 import java.io.CharArrayWriter;
 import java.util.*;
  class ListNode {
+     //字符串通配符
+     public static boolean match(String s1,String s2) {
+         boolean[][] a=new boolean[s1.length()+1][s2.length()+1];
+         a[0][0]=true;
+         for(int i=1;i<=s1.length();i++) {
+             a[i][0]=false;
+         }
+         for(int i=1;i<=s2.length();i++) {
+             if(s2.charAt(i)=='*'||s2.charAt(i)=='?') {
+                 a[0][i]=a[0][i-1];
+             } else {
+                 a[0][i]=false;
+             }
+         }
+         for(int i=1;i<=s1.length();i++) {
+             for(int j=1;j<=s2.length();j++) {
+                 if(s2.charAt(j)=='*') {
+                     a[i][j]=a[i-1][j]|a[i][j-1];
+                 } else if(s2.charAt(j)=='?') {
+                     a[i][j]=a[i-1][j-1];
+                 } else if(s2.charAt(j)==s1.charAt(i)) {
+                     a[i][j]=true;
+                 } else {
+                     a[i][j]=false;
+                 }
+             }
+         }
+         return a[s1.length()][s2.length()];
+     }
+     //括号的最大镶嵌程度
+     public int maxDepth(String s) {
+         int count=0;
+         int max=0;
+         for(int i=0;i<s.length();i++) {
+             if(s.charAt(i)=='(') {
+                 count++;
+                 max=max>count? max:count;
+             } else if(s.charAt(i)==')') {
+                 count--;
+             }
+         }
+         return max;
+     }
      //简化路径
      public  static String simplifyPath(String path) {
          // ../返回上一级目录

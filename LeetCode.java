@@ -3,6 +3,36 @@ import com.sun.javafx.image.impl.BaseByteToIntConverter;
 import java.io.CharArrayWriter;
 import java.util.*;
  class ListNode {
+     //按键持续时间最长的键
+     public static char slowestKey(int[] releaseTimes, String keysPressed) {
+         int[] a=new int[releaseTimes.length];
+         a[0]=releaseTimes[0];
+         int max=a[0];
+         int count=0;
+         for(int i=1;i<releaseTimes.length;i++) {
+             a[i]=releaseTimes[i]-releaseTimes[i-1];
+             if(a[i]>=max) {
+                 max=a[i];
+                 count=i;
+             }
+         }
+         char[] chars=keysPressed.toCharArray();
+         char res=chars[count];
+         for (int i = 0; i <chars.length ; i++) {
+             if(a[i]==max) {
+                 if(chars[i]>res) {
+                     res=chars[i];
+                 }
+             }
+         }
+         return res;
+     }
+
+     public static void main(String[] args) {
+         int[] a=new int[]{1,2};
+         String s="ba";
+         System.out.println(slowestKey(a, s));
+     }
      //字符串通配符
      public static boolean match(String s1,String s2) {
          boolean[][] a=new boolean[s1.length()+1][s2.length()+1];
@@ -76,7 +106,7 @@ import java.util.*;
 
      }
 
-     public static void main(String[] args) {
+     public static void main2(String[] args) {
          String s="/home/";
          simplifyPath(s);
      }

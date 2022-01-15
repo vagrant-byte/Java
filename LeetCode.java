@@ -3,6 +3,39 @@ import com.sun.javafx.image.impl.BaseByteToIntConverter;
 import java.io.CharArrayWriter;
 import java.util.*;
  class ListNode {
+     //计算力扣银行的钱
+     public static int totalMoney(int n) {
+//         int res=0;
+//         for (int i = 1; i <=n ; i++) {
+//             res+=(i-1)/7+(i-1)%7+1;
+//         }
+//         return res;
+         int[] tmp=new int[]{0,1,2,3,4,5,6,7};
+         if(n<=7) {
+             int sum=0;
+             for (int i = 0; i <n ; i++) {
+                 sum+=i+1;
+             }
+             return sum;
+         } else {
+             int num=n/7+1;
+             int sum=0;
+             for (int i = 1; i <num ; i++) {
+                 for (int j = tmp[i]; j <=8 ; j++) {
+                     sum+=j;
+                 }
+             }
+             for (int i = tmp[num]; i <tmp[num]+n%7 ; i++) {
+                 sum+=i;
+             }
+             return sum-8;
+         }
+     }
+
+     public static void main(String[] args) {
+         int n=10;
+         System.out.println(totalMoney(n));
+     }
      //按键持续时间最长的键
      public static char slowestKey(int[] releaseTimes, String keysPressed) {
          int[] a=new int[releaseTimes.length];
@@ -28,7 +61,7 @@ import java.util.*;
          return res;
      }
 
-     public static void main(String[] args) {
+     public static void main3(String[] args) {
          int[] a=new int[]{1,2};
          String s="ba";
          System.out.println(slowestKey(a, s));

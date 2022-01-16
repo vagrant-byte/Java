@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class demo5 {
     class TreeNode {
       int val;
@@ -11,7 +14,30 @@ public class demo5 {
           this.right = right;
       }
   }
-  //叶子相似的树
+  //递增顺序搜素树
+    public TreeNode increasingBST(TreeNode root) {
+        List<Integer> list=new ArrayList<>();
+        inorder(root,list);
+
+        TreeNode cur=new TreeNode(-1);
+        TreeNode tmp=cur;
+        for (int val:list) {
+            cur.right=new TreeNode(val);
+            cur=cur.right;
+        }
+        return tmp.right;
+    }
+
+    private void inorder(TreeNode root, List<Integer> list) {
+        if(root==null) {
+            return;
+        }
+        inorder(root.left,list);
+        list.add(root.val);
+        inorder(root.right,list);
+    }
+
+    //叶子相似的树
   public boolean leafSimilar(TreeNode root1, TreeNode root2) {
       String s1=copy(root1,"");
       String s2=copy(root2,"");

@@ -3,6 +3,30 @@ import com.sun.javafx.image.impl.BaseByteToIntConverter;
 import java.io.CharArrayWriter;
 import java.util.*;
  class ListNode {
+     //链表随机节点
+     ListNode head;
+     Random random;
+     public ListNode(ListNode head) {
+         this.head=head;
+         this.random=new Random();
+     }
+
+     public int getRandom() {
+
+         int res=0;
+         ListNode cur=head;
+         int count=0;
+         while(cur!=null) {
+             count++;
+             int randomint=random.nextInt(count)+1;
+             if(randomint==count) {
+                 res=cur.val;
+             }
+             cur=cur.next;
+         }
+         return res;
+
+     }
      //计算力扣银行的钱
      public static int totalMoney(int n) {
 //         int res=0;

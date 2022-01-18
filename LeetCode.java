@@ -3,6 +3,57 @@ import com.sun.javafx.image.impl.BaseByteToIntConverter;
 import java.io.CharArrayWriter;
 import java.util.*;
  class ListNode {
+     //最小时间差
+     public static int findMinDifference(List<String> timePoints) {
+         int[] times=new int[timePoints.size()];
+         for (int i = 0; i <timePoints.size() ; i++) {
+             String tmp=timePoints.get(i);
+             int hour=Integer.parseInt(tmp.substring(0,2));
+             int minute=Integer.parseInt(tmp.substring(3,5));
+             times[i]=hour*60+minute;
+         }
+         Arrays.sort(times);
+         int min=Integer.MAX_VALUE;
+         for (int i = 1; i <times.length ; i++) {
+             min=Math.min(times[i]-times[i-1],min);
+         }
+
+         System.out.println(times[0]+1440-times[times.length-1]);
+         System.out.println(min);
+         return Math.min(min,times[0]+1440-times[times.length-1]);
+     }
+
+     public static void main(String[] args) {
+         List<String> list=new ArrayList<>();
+         list.add("23:59");
+         list.add("00:00");
+         System.out.println(findMinDifference(list));
+
+     }
+     //编辑距离
+     public int minDistance(String word1, String word2) {
+         char[] chars1=word1.toCharArray();
+         char[] chars2=word2.toCharArray();
+         int len1=word1.length();
+         int len2=word2.length();
+         int[][] a=new int[len1+1][len2+1];
+         for (int i = 0; i <=len1 ; i++) {
+             a[i][0]=i;
+         }
+         for (int i = 0; i <=len2 ; i++) {
+             a[0][i]=i;
+         }
+         for (int i = 1; i <=len1 ; i++) {
+             for (int j = 1; j <=len2 ; j++) {
+                 if(chars1[i-1]==chars2[j-1]) {
+                     a[i][j]=a[i-1][j-1];
+                 } else {
+                     a[i][j]=Math.min(a[i-1][j],Math.min(a[i][j-1],a[i-1][j-1]))+1;
+                 }
+             }
+         }
+         return a[len1][len2];
+     }
      //链表随机节点
      ListNode head;
      Random random;
@@ -56,7 +107,7 @@ import java.util.*;
          }
      }
 
-     public static void main(String[] args) {
+     public static void main4(String[] args) {
          int n=10;
          System.out.println(totalMoney(n));
      }

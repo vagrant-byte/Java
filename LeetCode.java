@@ -3,6 +3,24 @@ import com.sun.javafx.image.impl.BaseByteToIntConverter;
 import java.io.CharArrayWriter;
 import java.util.*;
  class ListNode {
+     //删除回文子序列
+     public int removePalindromeSub(String s) {
+         if(s==null||s.length()==0) {
+             return 0;
+         }
+         if(palindrome(s)) {
+             return 1;
+         } else {
+             return 2;
+         }
+     }
+     public boolean palindrome(String s) {
+         String tmp="";
+         for(int i=s.length()-1;i>=0;i--) {
+             tmp+=s.charAt(i)+"";
+         }
+         return s.equals(tmp);
+     }
      //最小时间差
      public static int findMinDifference(List<String> timePoints) {
          int[] times=new int[timePoints.size()];

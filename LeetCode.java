@@ -1,8 +1,91 @@
 import com.sun.javafx.image.impl.BaseByteToIntConverter;
 
 import java.io.CharArrayWriter;
+import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //股票价格波动
+     public HashMap<Integer,Integer> map;
+     public TreeMap<Integer,Integer> prices;
+     int max_t;
+     public void StockPrice() {
+         map=new HashMap<>();
+         prices=new TreeMap<>();
+         max_t=0;
+     }
+
+     public void update(int timestamp, int price) {
+         max_t=Math.max(timestamp,max_t);
+         Integer n=map.get(timestamp);
+         if(n!=null) {
+             int num=prices.get(n);
+             if(num==1) {
+                 prices.remove(n);
+             } else {
+                 prices.put(n,num-1);
+             }
+         }
+         prices.put(price,prices.getOrDefault(price,0)+1);
+         map.put(timestamp,price);
+     }
+
+     public int current() {
+         return map.get(max_t);
+     }
+
+     public int maximum() {
+         return prices.lastKey();
+
+     }
+
+     public int minimum() {
+         return prices.firstKey();
+
+     }
+//     public static HashMap<Integer,Integer> map;
+//     public void StockPrice() {
+//         map=new HashMap<>();
+//     }
+//
+//     public void update(int timestamp, int price) {
+//         if(map.containsKey(timestamp)) {
+//             map.put(timestamp,price);
+//         } else {
+//             map.put(timestamp,price);
+//         }
+//     }
+//
+//     public int current() {
+//         int max=Integer.MIN_VALUE;
+//         for (Map.Entry<Integer,Integer> entry:map.entrySet()) {
+//             if(max<entry.getKey()) {
+//                 max=entry.getKey();
+//             }
+//         }
+//         return map.get(max);
+//     }
+//
+//     public int maximum() {
+//         int max=Integer.MIN_VALUE;
+//         for (Map.Entry<Integer,Integer> entry:map.entrySet()) {
+//             if(max<entry.getValue()) {
+//                 max=entry.getValue();
+//             }
+//         }
+//         return max;
+//
+//     }
+//
+//     public int minimum() {
+//         int min=Integer.MAX_VALUE;
+//         for (Map.Entry<Integer,Integer> entry:map.entrySet()) {
+//             if(min>entry.getValue()) {
+//                 min=entry.getValue();
+//             }
+//         }
+//         return min;
+//
+//     }
      //删除回文子序列
      public int removePalindromeSub(String s) {
          if(s==null||s.length()==0) {

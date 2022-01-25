@@ -4,6 +4,21 @@ import java.io.CharArrayWriter;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //比赛中的配对次数
+     public static int numberOfMatches(int n) {
+         int count=0;
+         while (n>1) {
+             count+=n/2;
+             n=((n%2==1)?n/2+1:n/2);
+         }
+         return count;
+        // return n-1;
+     }
+
+     public static void main(String[] args) {
+         int n=14;
+         System.out.println(numberOfMatches(n));
+     }
      //股票价格波动
      public HashMap<Integer,Integer> map;
      public TreeMap<Integer,Integer> prices;
@@ -124,7 +139,7 @@ import java.util.*;
          return Math.min(min,times[0]+1440-times[times.length-1]);
      }
 
-     public static void main(String[] args) {
+     public static void main5(String[] args) {
          List<String> list=new ArrayList<>();
          list.add("23:59");
          list.add("00:00");

@@ -4,6 +4,52 @@ import java.io.CharArrayWriter;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //句子中的有效单词数
+     public static int countValidWords(String sentence) {
+         if(sentence==null||sentence.length()==0) {
+             return 0;
+         }
+         String[] tmp=sentence.split(" ");
+         int count=0;
+         for (int i = 0; i <tmp.length ; i++) {
+             if(!tmp[i].equals("")) {
+                 if(isToken(tmp[i])) {
+                     count++;
+                 }
+             }
+         }
+         return count;
+     }
+
+     private static boolean isToken(String s) {
+         boolean Hyphen=false;
+         char[] chars=s.toCharArray();
+         for (int i = 0; i <chars.length ; i++) {
+             if(chars[i]>='0'&&chars[i]<='9') {
+                 return false;
+             } else if(chars[i]=='-') {
+                 if(Hyphen || i==0 ||i==chars.length-1) {
+                     return false;
+                 }
+                 if(chars[i-1]<'a'||chars[i-1]>'z'||chars[i+1]<'a'||chars[i+1]>'z') {
+                     return false;
+                 }
+                 Hyphen=true;
+             } else if(chars[i]=='!'||chars[i]=='.'||chars[i]==',') {
+                 if(i!=chars.length-1) {
+                     return false;
+                 }
+             }
+
+         }
+         return true;
+     }
+
+     public static void main(String[] args) {
+         String s="this and dog";
+         System.out.println(countValidWords(s));
+     }
+
      //比赛中的配对次数
      public static int numberOfMatches(int n) {
          int count=0;
@@ -15,7 +61,7 @@ import java.util.*;
         // return n-1;
      }
 
-     public static void main(String[] args) {
+     public static void main6(String[] args) {
          int n=14;
          System.out.println(numberOfMatches(n));
      }

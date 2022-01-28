@@ -4,6 +4,20 @@ import java.io.CharArrayWriter;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //游戏中弱角色的数量
+     public int numberOfWeakCharacters(int[][] properties) {
+         Arrays.sort(properties,(((o1, o2) -> o1[0]==o2[0]?o1[1]-o2[1]:o2[1]-o1[1])));
+         int count=0;
+         int tmp=properties[0][1];
+         for (int i = 1; i <properties.length ; i++) {
+             if(properties[i][1]<tmp) {
+                 count++;
+                 continue;
+             }
+             tmp=Math.max(tmp,properties[i][1]);
+         }
+         return count;
+     }
      //句子中的有效单词数
      public static int countValidWords(String sentence) {
          if(sentence==null||sentence.length()==0) {

@@ -4,6 +4,26 @@ import java.io.CharArrayWriter;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //将数字变成0的操作数
+     public static int numberOfSteps(int num) {
+         int count=0;
+         while (num>0) {
+             if(num%2==0) {
+                 num=num/2;
+             } else {
+                 num--;
+             }
+             count++;
+
+         }
+         return count;
+     }
+
+     public static void main(String[] args) {
+         int num=123;
+         int n=numberOfSteps(num);
+         System.out.println(n);
+     }
      //游戏中弱角色的数量
      public int numberOfWeakCharacters(int[][] properties) {
          Arrays.sort(properties,(((o1, o2) -> o1[0]==o2[0]?o1[1]-o2[1]:o2[1]-o1[1])));
@@ -59,7 +79,7 @@ import java.util.*;
          return true;
      }
 
-     public static void main(String[] args) {
+     public static void main7(String[] args) {
          String s="this and dog";
          System.out.println(countValidWords(s));
      }

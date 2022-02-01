@@ -4,6 +4,41 @@ import java.io.CharArrayWriter;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //最长的美好子字符串
+     public String longestNiceSubstring(String s) {
+         int n=s.length();
+         int left=0;
+         int right=0;
+         for(int i=0;i<n;i++) {
+             for(int j=i+1;j<=n;j++) {
+                 if(isNice(s.substring(i,j))&&j-i>right-left) {
+                     left=i;
+                     right=j;
+                 }
+             }
+         }
+         return s.substring(left,right);
+     }
+     private boolean isNice(String str){
+
+         boolean[] flag = new boolean[100];
+
+         for(char c:str.toCharArray()){
+             flag[c-'A'] = true;
+         }
+
+         for(char c:str.toCharArray()){
+             if(!(c >= 'a' && flag[c-'a'] || c <= 'Z' && flag[c-'A' + 32])){
+                 return false;
+             }
+         }
+
+         return true;
+     }
+
+     public static void main(String[] args) {
+
+     }
      //将数字变成0的操作数
      public static int numberOfSteps(int num) {
          int count=0;
@@ -19,7 +54,7 @@ import java.util.*;
          return count;
      }
 
-     public static void main(String[] args) {
+     public static void main7(String[] args) {
          int num=123;
          int n=numberOfSteps(num);
          System.out.println(n);
@@ -79,7 +114,7 @@ import java.util.*;
          return true;
      }
 
-     public static void main7(String[] args) {
+     public static void main8(String[] args) {
          String s="this and dog";
          System.out.println(countValidWords(s));
      }

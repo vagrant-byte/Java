@@ -4,6 +4,56 @@ import java.io.CharArrayWriter;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //和为K的最少斐波那契数字数目
+     public int fib(int n) {
+         if(n==0) {
+             return 0;
+         }
+         int a=1;
+         int b=1;
+         int c=0;
+         while (n>=c) {
+             c=a+b;
+             a=b;
+             b=c;
+         }
+         return a;
+     }
+     public int findMinFibonacciNumbers(int k) {
+         int res=0;
+         while (k>0) {
+             int a=fib(k);
+             k-=a;
+             res++;
+         }
+         return res;
+
+     }
+     //反转单词前缀
+     public static String reversePrefix(String word, char ch) {
+         String res="";
+         char[] chars=word.toCharArray();
+         int tmp=0;
+         for (int i = 0; i <chars.length ; i++) {
+             if(chars[i]==ch) {
+                 tmp=i;
+                 for(int j=i;j>=0;j--) {
+                     res+=chars[j];
+                 }
+                 break;
+             }
+         }
+         if(tmp==0) {
+             return word;
+         } else {
+             res+=word.substring(tmp+1,word.length());
+             return res;
+         }
+     }
+
+     public static void main(String[] args) {
+         System.out.println(reversePrefix("abcdefg", 'd'));
+     }
      //最长的美好子字符串
      public String longestNiceSubstring(String s) {
          int n=s.length();
@@ -36,9 +86,6 @@ import java.util.*;
          return true;
      }
 
-     public static void main(String[] args) {
-
-     }
      //将数字变成0的操作数
      public static int numberOfSteps(int num) {
          int count=0;

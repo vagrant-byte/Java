@@ -4,7 +4,32 @@ import java.io.CharArrayWriter;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
-     //和为K的最少斐波那契数字数目
+     //可以形成最大正方形的矩形数目
+     public static int countGoodRectangles(int[][] rectangles) {
+         int maxlen=0;
+         int count=0;
+         for (int i = 0; i <rectangles.length ; i++) {
+             if(rectangles[i][0]<rectangles[i][1]) {
+                 int tmp=rectangles[i][0];
+                 rectangles[i][0]=rectangles[i][1];
+                 rectangles[i][1]=tmp;
+             }
+             maxlen=Math.max(maxlen,rectangles[i][1]);
+         }
+         for (int i = 0; i <rectangles.length ; i++) {
+             if(maxlen==rectangles[i][1]) {
+                 count++;
+             }
+         }
+         return count;
+     }
+
+     public static void main(String[] args) {
+         int[][] r = new int[][]{{2, 3}, {3, 7}, {4, 3}, {3, 7}};
+         int c=countGoodRectangles(r);
+         System.out.println(c);
+     }
+         //和为K的最少斐波那契数字数目
      public int fib(int n) {
          if(n==0) {
              return 0;
@@ -51,9 +76,6 @@ import java.util.*;
          }
      }
 
-     public static void main(String[] args) {
-         System.out.println(reversePrefix("abcdefg", 'd'));
-     }
      //最长的美好子字符串
      public String longestNiceSubstring(String s) {
          int n=s.length();

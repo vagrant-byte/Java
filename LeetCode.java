@@ -4,6 +4,31 @@ import java.io.CharArrayWriter;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //唯一元素的和
+     public static int sumOfUnique(int[] nums) {
+        HashMap<Integer,Integer> map=new HashMap<>();
+         for (int i = 0; i <nums.length ; i++) {
+             if(map.containsKey(nums[i])) {
+                 map.put(nums[i],map.get(nums[i])+1);
+             } else {
+                 map.put(nums[i],1);
+             }
+         }
+         int sum=0;
+         for (int i = 0; i <nums.length ; i++) {
+             if(map.get(nums[i])==1) {
+                 sum+=nums[i];
+             }
+         }
+         return sum;
+     }
+
+     public static void main(String[] args) {
+         int[] a=new int[]{1,1,1,1,1};
+         int s=sumOfUnique(a);
+         System.out.println(s);
+
+     }
      //黄金矿工
      int ans=0;
      int grid[][];
@@ -45,11 +70,6 @@ import java.util.*;
          return count;
      }
 
-     public static void main(String[] args) {
-         int[][] r = new int[][]{{2, 3}, {3, 7}, {4, 3}, {3, 7}};
-         int c=countGoodRectangles(r);
-         System.out.println(c);
-     }
          //和为K的最少斐波那契数字数目
      public int fib(int n) {
          if(n==0) {

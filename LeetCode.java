@@ -4,6 +4,24 @@ import java.io.CharArrayWriter;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //差的绝对值为K的数对数目
+     public static int countKDifference(int[] nums, int k) {
+         int count=0;
+         for (int i = 0; i <nums.length ; i++) {
+             for (int j = i+1; j <nums.length ; j++) {
+                 if(nums[j]-nums[i]==k||nums[i]-nums[j]==k) {
+                     count++;
+                 }
+             }
+         }
+         return count;
+     }
+
+     public static void main(String[] args) {
+         int[] nums=new int[]{3,2,1,5,4};
+         int n=countKDifference(nums,2);
+         System.out.println(n);
+     }
      //唯一元素的和
      public static int sumOfUnique(int[] nums) {
         HashMap<Integer,Integer> map=new HashMap<>();
@@ -23,12 +41,6 @@ import java.util.*;
          return sum;
      }
 
-     public static void main(String[] args) {
-         int[] a=new int[]{1,1,1,1,1};
-         int s=sumOfUnique(a);
-         System.out.println(s);
-
-     }
      //黄金矿工
      int ans=0;
      int grid[][];

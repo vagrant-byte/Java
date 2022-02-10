@@ -4,6 +4,33 @@ import java.io.CharArrayWriter;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //最简分数
+     public static List<String> simplifiedFractions(int n) {
+         List<String> list=new ArrayList<>();
+         if(n==1) {
+             return list;
+         }
+         for (int i = 2; i <=n ; i++) {
+             list.add("1"+"/"+i);
+             for (int j = 2; j <i ; j++) {
+                 if(gcb(i,j)==1) {
+                     list.add(j+"/"+i);
+                 }
+             }
+         }
+         return list;
+     }
+     public static int gcb(int a,int b) {
+         if(a%b==0) {
+             return b;
+         }
+         return gcb(b,a%b);
+     }
+     public static void main(String[] args) {
+         int n=6;
+         List<String> list=simplifiedFractions(n);
+         System.out.println(list);
+     }
      //差的绝对值为K的数对数目
      public static int countKDifference(int[] nums, int k) {
          int count=0;
@@ -15,12 +42,6 @@ import java.util.*;
              }
          }
          return count;
-     }
-
-     public static void main(String[] args) {
-         int[] nums=new int[]{3,2,1,5,4};
-         int n=countKDifference(nums,2);
-         System.out.println(n);
      }
      //唯一元素的和
      public static int sumOfUnique(int[] nums) {

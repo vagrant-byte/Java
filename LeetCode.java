@@ -1,9 +1,31 @@
 import com.sun.javafx.image.impl.BaseByteToIntConverter;
 
 import java.io.CharArrayWriter;
+import java.io.InputStream;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //学生分数的最小差值
+     public static int minimumDifference(int[] nums, int k) {
+         if(k==1) {
+             return 0;
+         }
+         Arrays.sort(nums);
+         int num= Integer.MAX_VALUE;
+         for (int i = 0; i <=nums.length-k ; i++) {
+             int tmp=nums[i+k-1]-nums[i];
+             if(tmp>=0&&tmp<num) {
+                 num=tmp;
+             }
+         }
+         return num;
+     }
+
+     public static void main(String[] args) {
+         int[] nums={9,4,1,7};
+         int min=minimumDifference(nums,2);
+         System.out.println(min);
+     }
      //最简分数
      public static List<String> simplifiedFractions(int n) {
          List<String> list=new ArrayList<>();
@@ -26,11 +48,7 @@ import java.util.*;
          }
          return gcb(b,a%b);
      }
-     public static void main(String[] args) {
-         int n=6;
-         List<String> list=simplifiedFractions(n);
-         System.out.println(list);
-     }
+
      //差的绝对值为K的数对数目
      public static int countKDifference(int[] nums, int k) {
          int count=0;

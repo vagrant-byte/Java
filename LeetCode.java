@@ -5,6 +5,33 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //“气球”的最大数量
+     public int maxNumberOfBalloons(String text) {
+         int b=0;
+         int a=0;
+         int l=0;
+         int o=0;
+         int n=0;
+         char[] chars=text.toCharArray();
+         for (int i = 0; i <chars.length ; i++) {
+             if(chars[i]=='a') {
+                 a++;
+             } else if(chars[i]=='b') {
+                 b++;
+             } else if(chars[i]=='l') {
+                 l++;
+             } else if(chars[i]=='o') {
+                 o++;
+             } else if(chars[i]=='n') {
+                 n++;
+             }
+         }
+         int count1= Math.min(Math.min(b,a),n);
+         int count2=Math.min(l/2,o/2);
+         return Math.min(count1,count2);
+
+
+     }
      //飞地的数量
      public int numEnclaves(int[][] grid) {
          int m=grid.length;

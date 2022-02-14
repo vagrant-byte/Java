@@ -5,6 +5,34 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //有序数组中单一的元素
+     public static int singleNonDuplicate(int[] nums) {
+         int res=0;
+         for (int i = 0; i <nums.length ; i++) {
+             res^=nums[i];
+         }
+         return res;
+//         if(nums.length==1) {
+//             return nums[0];
+//         }
+//         if(nums[0]!=nums[1]) {
+//             return nums[0];
+//         }
+//         for (int i = 1; i <=nums.length-2 ; i++) {
+//             if(nums[i]!=nums[i-1]&&nums[i]!=nums[i+1]) {
+//                 return nums[i];
+//             }
+//         }
+//         if(nums[nums.length-1]!=nums[nums.length-2]) {
+//             return nums[nums.length-2];
+//         }
+//         return -1;
+     }
+     public static void main(String[] args) {
+         int[] nums={3,3,7,7,10,11,11,8,8};
+         int min=singleNonDuplicate(nums);
+         System.out.println(min);
+     }
      //“气球”的最大数量
      public int maxNumberOfBalloons(String text) {
          int b=0;
@@ -82,11 +110,6 @@ import java.util.*;
          return num;
      }
 
-     public static void main(String[] args) {
-         int[] nums={9,4,1,7};
-         int min=minimumDifference(nums,2);
-         System.out.println(min);
-     }
      //最简分数
      public static List<String> simplifiedFractions(int n) {
          List<String> list=new ArrayList<>();

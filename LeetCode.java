@@ -5,6 +5,33 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //矩阵中的幸运数字
+     public List<Integer> luckyNumbers (int[][] matrix) {
+         List<Integer> list1=new ArrayList<>();
+         for (int i = 0; i <matrix.length ; i++) {
+             //行的最小值
+             int cMin=matrix[i][0];
+             //最小值下标
+             int index=0;
+             for (int j = 1; j <matrix[i].length ; j++) {
+                 if(cMin>matrix[i][j]) {
+                     cMin=matrix[i][j];
+                     index=j;
+                 }
+             }
+             int rMax=matrix[0][index];
+             for (int j = 0; j <matrix.length ; j++) {
+                 if(rMax<matrix[j][index]) {
+                     rMax=matrix[j][index];
+                 }
+             }
+             if(rMax==cMin) {
+                 list1.add(cMin);
+             }
+         }
+         return list1;
+
+     }
      //有序数组中单一的元素
      public static int singleNonDuplicate(int[] nums) {
          int res=0;

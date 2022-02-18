@@ -5,6 +5,20 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //找出星型图的中心节点
+     public int findCenter(int[][] edges) {
+         if(edges[0][0]==edges[1][0]) {
+             return edges[0][0];
+         } else if(edges[0][0]==edges[1][1]){
+             return edges[0][0];
+         } else if(edges[0][1]==edges[1][0]) {
+             return edges[0][1];
+         } else {
+             return edges[0][1];
+         }
+
+     }
+
      //矩阵中的幸运数字
      public List<Integer> luckyNumbers (int[][] matrix) {
          List<Integer> list1=new ArrayList<>();

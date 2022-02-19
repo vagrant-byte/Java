@@ -5,6 +5,37 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //煎饼排序
+     public List<Integer> pancakeSort(int[] arr) {
+         List<Integer> ret=new ArrayList<>();
+         for (int i = arr.length; i >1 ; i--) {
+             int index=0;
+             for (int j = 1; j <i ; j++) {
+                 if(arr[j]>=arr[index]) {
+                     index=j;
+                 }
+             }
+             //最大的在最后
+             if(index==i-1) {
+                 continue;
+             }
+             revers(arr,index);
+             revers(arr,i-1);
+             ret.add(index+1);
+             ret.add(i);
+         }
+         return ret;
+
+     }
+
+     private void revers(int[] arr, int index) {
+         for (int i = 0,j=index ;i <j ; i++,j--) {
+             int tmp=arr[i];
+             arr[i]=arr[j];
+             arr[j]=tmp;
+         }
+     }
+
      //找出星型图的中心节点
      public int findCenter(int[][] edges) {
          if(edges[0][0]==edges[1][0]) {

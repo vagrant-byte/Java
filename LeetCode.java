@@ -5,6 +5,25 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //1比特与2比特字符
+     public static boolean isOneBitCharacter(int[] bits) {
+         int index=0;
+         while (index<bits.length-1) {
+             if(bits[index]==1) {
+                 index+=2;
+             } else {
+                 index++;
+             }
+         }
+         return index==bits.length-1;
+     }
+
+     public static void main(String[] args) {
+         int[] a={1,0,0};
+         boolean s=isOneBitCharacter(a);
+         System.out.println(s);
+
+     }
      //煎饼排序
      public List<Integer> pancakeSort(int[] arr) {
          List<Integer> ret=new ArrayList<>();
@@ -100,7 +119,7 @@ import java.util.*;
 //         }
 //         return -1;
      }
-     public static void main(String[] args) {
+     public static void main14(String[] args) {
          int[] nums={3,3,7,7,10,11,11,8,8};
          int min=singleNonDuplicate(nums);
          System.out.println(min);

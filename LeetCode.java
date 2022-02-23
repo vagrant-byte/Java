@@ -5,6 +5,37 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //仅仅反转字母
+     public static String reverseOnlyLetters(String s) {
+         char[] chars=new char[s.length()];
+         int count=0;
+         for(int i=s.length()-1;i>=0;i--) {
+             if((s.charAt(i)>='a'&&s.charAt(i)<='z')||(s.charAt(i)>='A'&&s.charAt(i)<='Z')) {
+                 if((s.charAt(count)>='a'&&s.charAt(count)<='z')||(s.charAt(count)>='A'&&s.charAt(count)<='Z')) {
+                     chars[count]=s.charAt(i);
+                     count++;
+
+                 } else {
+                     chars[count]=s.charAt(count);
+                     count++;
+                     i++;
+                 }
+             } else {
+                 chars[i]=s.charAt(i);
+             }
+         }
+         String res="";
+         for (int i = 0; i <chars.length ; i++) {
+             res+=chars[i];
+         }
+         return res;
+     }
+
+     public static void main(String[] args) {
+         String s="Test1ng-Leet=code-Q!";
+         String r=reverseOnlyLetters(s);
+         System.out.println(r);
+     }
      //1比特与2比特字符
      public static boolean isOneBitCharacter(int[] bits) {
          int index=0;
@@ -18,12 +49,7 @@ import java.util.*;
          return index==bits.length-1;
      }
 
-     public static void main(String[] args) {
-         int[] a={1,0,0};
-         boolean s=isOneBitCharacter(a);
-         System.out.println(s);
 
-     }
      //煎饼排序
      public List<Integer> pancakeSort(int[] arr) {
          List<Integer> ret=new ArrayList<>();

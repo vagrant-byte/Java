@@ -5,6 +5,59 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //复数乘法
+     public static String complexNumberMultiply(String num1, String num2) {
+         int index1=0;
+         for (int i = 1; i <num1.length() ; i++) {
+             if(num1.charAt(i)=='+'||num1.charAt(i)=='-') {
+                 index1=i;
+                 break;
+             }
+         }
+         int num11=0;
+         if(num1.charAt(0)=='-') {
+             num11=Integer.parseInt(num1.substring(1,index1))*(-1);
+         } else {
+             num11=Integer.parseInt(num1.substring(0,index1));
+         }
+         int num12=0;
+         if(num1.charAt(index1+1)=='-') {
+             num12=Integer.parseInt(num1.substring(index1+2,num1.length()-1))*(-1);
+         } else {
+             num12=Integer.parseInt(num1.substring(index1,num1.length()-1));
+         }
+         int index2=0;
+         for (int i = 1; i <num2.length() ; i++) {
+             if(num2.charAt(i)=='+'||num2.charAt(i)=='-') {
+                 index2=i;
+                 break;
+             }
+         }
+         int num21=0;
+         if(num2.charAt(0)=='-') {
+             num21=Integer.parseInt(num2.substring(1,index2))*(-1);
+         } else {
+             num21=Integer.parseInt(num2.substring(0,index2));
+         }
+
+         int num22=0;
+         if(num2.charAt(index2+1)=='-') {
+             num22=Integer.parseInt(num2.substring(index2+2,num2.length()-1))*(-1);
+         } else {
+             num22=Integer.parseInt(num2.substring(index2,num2.length()-1));
+         }
+         int res=num11*num21+num12*num22*(-1);
+         int res1=num11*num22+num12*num21;
+         String s=res+"+"+res1+"i";
+         return s;
+     }
+
+     public static void main(String[] args) {
+         String s1="78+-76i";
+         String s2="-86+72i";
+         String s=complexNumberMultiply(s1, s2);
+         System.out.println(s);
+     }
      //仅仅反转字母
      public static String reverseOnlyLetters(String s) {
          char[] chars=new char[s.length()];
@@ -31,11 +84,6 @@ import java.util.*;
          return res;
      }
 
-     public static void main(String[] args) {
-         String s="Test1ng-Leet=code-Q!";
-         String r=reverseOnlyLetters(s);
-         System.out.println(r);
-     }
      //1比特与2比特字符
      public static boolean isOneBitCharacter(int[] bits) {
          int index=0;

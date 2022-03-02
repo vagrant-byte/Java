@@ -3,6 +3,43 @@ package 二分查找;
 import java.util.*;
 
 public class Solution1 {
+    //乘积小于k的数组
+    public int numSubarrayProductLessThanK(int[] nums, int k) {
+        int count=0;
+        int p=1;
+        for(int i=0;i<nums.length;i++) {
+            if(nums[i]<k) {
+                p=nums[i];
+                count++;
+            }
+            for(int j=i+1;j<nums.length;j++) {
+                p*=nums[j];
+                if(p<k) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+        }
+        return count;
+    }
+
+    //和大于等于target的最短子数组
+    public int minSubArrayLen(int target, int[] nums) {
+        int min=Integer.MAX_VALUE;//存放最小的步长
+        int sum=0;
+        int i=0;
+        for (int j = 0; j <nums.length ; j++) {
+            sum+=nums[j];
+            while (i<=j&&sum>=target) {
+                min=Math.min(min,j-i+1);
+                //类似与滑动窗口
+                sum-=nums[i++];
+            }
+        }
+        return min==Integer.MAX_VALUE?0:min;
+
+    }
     //排序数组中两个数字之和
     public int[] twoSum(int[] numbers, int target) {
         int left=0;

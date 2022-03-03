@@ -5,6 +5,17 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //各位相加
+     public int addDigits(int num) {
+         if(num<10) {
+             return num;
+         }
+         while (num>=10) {
+             num=num/10+num%10;
+         }
+         return num;
+
+     }
      //增量元素之间的的最大差值
      public int maximumDifference(int[] nums) {
          int max=-1;

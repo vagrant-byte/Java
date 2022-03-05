@@ -5,6 +5,33 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //最长特殊序列
+     public int findLUSlength(String a, String b) {
+         if(a.equals(b)) {
+             return -1;
+         }
+        return Math.max(a.length(),b.length());
+
+     }
+     //子数组范围和
+     public static long subArrayRanges(int[] nums) {
+         long res=0;
+         for (int i = 0; i <nums.length-1 ; i++) {
+             int max=nums[i];
+             int min=nums[i];
+             for (int j = i+1; j <nums.length ; j++) {
+                 max=Math.max(max,nums[j]);
+                 min=Math.min(min,nums[j]);
+                 res+=max-min;
+             }
+         }
+         return res;
+     }
+
+     public static void main(String[] args) {
+         int[] nums={4,-2,-3,4,1};
+         System.out.println(subArrayRanges(nums));
+     }
      //各位相加
      public int addDigits(int num) {
          if(num<10) {
@@ -76,12 +103,7 @@ import java.util.*;
          return s;
      }
 
-     public static void main(String[] args) {
-         String s1="78+-76i";
-         String s2="-86+72i";
-         String s=complexNumberMultiply(s1, s2);
-         System.out.println(s);
-     }
+
      //仅仅反转字母
      public static String reverseOnlyLetters(String s) {
          char[] chars=new char[s.length()];

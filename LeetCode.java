@@ -5,6 +5,22 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //无重复字符的最长子串
+     public int lengthOfLongestSubstring(String s) {
+         HashMap<Character,Integer> map=new HashMap<>();
+         int slow=0;
+         int max=0;
+         for (int i = 0; i <s.length() ; i++) {
+             if(map.containsKey(s.charAt(i))) {
+                 slow=Math.max(slow,map.get(s.charAt(i))+1);
+             }
+             map.put(s.charAt(i),i);
+             max=Math.max(max,i-slow+1);
+         }
+         return max;
+
+
+     }
      //最长特殊序列
      public int findLUSlength(String a, String b) {
          if(a.equals(b)) {

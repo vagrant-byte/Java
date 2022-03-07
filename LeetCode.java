@@ -5,6 +5,25 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //七进制数
+     public String convertToBase7(int num) {
+         if(num==0) {
+             return "0";
+         }
+         StringBuilder stringBuilder=new StringBuilder();
+         boolean flag=num<0;
+         int nums=Math.abs(num);
+         while (nums!=0) {
+             stringBuilder.append(nums%7);
+             nums/=7;
+         }
+         if(flag) {
+             return "-"+stringBuilder.toString();
+         }
+         return stringBuilder.reverse().toString();
+
+
+     }
      //无重复字符的最长子串
      public int lengthOfLongestSubstring(String s) {
          HashMap<Character,Integer> map=new HashMap<>();

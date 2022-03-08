@@ -5,6 +5,47 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //寻找两个正序数组的中位数
+     public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
+         int length1=nums1.length;
+         int length2=nums2.length;
+         int[] res=new int[length1+length2];
+         int count=0;
+         int min=length1>length2?length2:length1;
+         int i=0;
+         int j=0;
+         while (i<length1&&j<length2) {
+             if(nums1[i]>nums2[j]) {
+                 res[count++]=nums1[j];
+                 j++;
+             } else {
+                 res[count++]=nums2[i];
+                 i++;
+             }
+         }
+         if(i==length1) {
+             for (int k = i; k <length2 ; k++) {
+                 res[count++]=nums2[k];
+             }
+         } else {
+             for (int k = i; k <length1 ; k++) {
+                 res[count++]=nums1[k];
+             }
+         }
+         int mid=res.length/2;
+         if(res.length%2==0) {
+             return  (res[mid-1]+res[mid])/2.0;
+         } else {
+             return res[mid];
+         }
+     }
+
+     public static void main(String[] args) {
+         int[] nums1={1,3};
+         int[] nums2={2};
+         System.out.println(findMedianSortedArrays(nums1,nums2));
+
+     }
      //七进制数
      public String convertToBase7(int num) {
          if(num==0) {
@@ -63,10 +104,6 @@ import java.util.*;
          return res;
      }
 
-     public static void main(String[] args) {
-         int[] nums={4,-2,-3,4,1};
-         System.out.println(subArrayRanges(nums));
-     }
      //各位相加
      public int addDigits(int num) {
          if(num<10) {

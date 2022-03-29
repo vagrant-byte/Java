@@ -5,6 +5,31 @@ import java.io.InputStream;
 import java.security.KeyStore;
 import java.util.*;
  class ListNode {
+     //两个列表的最小索引和
+     public String[] findRestaurant(String[] list1, String[] list2) {
+         int len1=list1.length;
+         int len2=list2.length;
+         //使用数组存放相同的字符串
+         ArrayList<String> list=new ArrayList<>();
+         int min=Integer.MAX_VALUE;
+         for (int i = 0; i <len1 ; i++) {
+             for (int j = 0; j < len2; j++) {
+                 if (list1[i].equals(list2[j])) {
+                     if(i+j==min) {
+                         //相加和与最小值相等直接相加
+                         list.add(list1[i]);
+                     }else if(i+j<min) {
+                         //相加小于最小值即新的最小值出现那么数组之前添加的字符串需要清空
+                         min=i+j;
+                         list.clear();
+                         list.add(list1[i]);
+                     }
+                 }
+             }
+         }
+         return (String[])list.toArray(new String[0]); 
+
+     }
      //寻找两个正序数组的中位数
      public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
          int length1=nums1.length;

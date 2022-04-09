@@ -4,7 +4,31 @@ import java.util.Map;
 //到达终点
 public class reachingPoints {
     public static boolean reachingPoints(int sx, int sy, int tx, int ty) {
-        //逆向思考 从(tx,ty)推到(sx,sy)只能有一种操作，就是将tx，ty中较大
+        while (tx>0&&ty>0) {
+            if(sx==tx&&sy==ty) {
+                return true;
+            }
+            if(tx>ty) {
+                tx-=Math.max((tx-sx)/ty,1)*ty;
+            } else {
+                ty-=Math.max((ty-sy)/tx,1)*tx;
+            }
+        }
+        return false;
+        //逆向思考 从(tx,ty)推到(sx,sy)只能有一种操作，就是将tx，ty中较大值减去较小(因为顺推的时候是(x, y)
+        // 可以转换到 (x, x+y) 或者 (x+y, y)，则逆推的时候只能将较大者减去较小者）
+        //超时了
+//        while (tx>0&&ty>0) {
+//            if(sx==tx&&sy==ty) {
+//                return true;
+//            }
+//            if(tx>ty) {
+//                tx-=ty;
+//            } else {
+//                ty-=tx;
+//            }
+//        }
+//        return false;
 //        int max=tx>ty?tx:ty;
 //        HashMap<Integer,Integer> map=new HashMap<>();
 //        if(sx==sy) {

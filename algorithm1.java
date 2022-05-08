@@ -1,5 +1,8 @@
 package 数组;
 
+import java.util.Arrays;
+import java.util.HashMap;
+
 public class algorithm1 {
     //1.二维数组查找
     public boolean findNumberIn2DArray(int[][] matrix, int target) {
@@ -24,7 +27,7 @@ public class algorithm1 {
         }
         return false;
     }
-    //旋转数组的最小数字
+    //2.旋转数组的最小数字
     public static int minArray(int[] numbers) {
        int left=0;
        int right=numbers.length-1;
@@ -58,7 +61,7 @@ public class algorithm1 {
        }
        return numbers[mid];
     }
-    //调整数组顺序使奇数位于偶数前面
+    //3.调整数组顺序使奇数位于偶数前面
     public int[] exchange(int[] nums) {
         if(nums==null||nums.length==0) {
             return new int[]{};
@@ -78,6 +81,46 @@ public class algorithm1 {
             }
         }
         return nums;
+
+    }
+    //4，数组中出现次数超过一半的数字
+    public int majorityElement(int[] nums) {
+        int count=1;//次数
+        int card=nums[0];//出现次数最多的数
+        for (int i = 1; i <nums.length ; i++) {
+            if(count==0) {
+                card=nums[i];
+                count=1;
+            } else if(card==nums[i]) {
+                count++;
+            } else {
+                count--;
+            }
+        }
+        return card;
+
+//        Arrays.sort(nums);//排序
+//        int num=nums[nums.length/2];//取中间数字
+//        int count=0;
+//        for (int i = 0; i <nums.length; i++) {
+//            if(nums[i]==num) {
+//                count++;
+//            }
+//        }
+//        return count>nums.length/2?num:Integer.MIN_VALUE;
+//        HashMap<Integer,Integer> map=new HashMap<>();
+//        for (int i = 0; i <nums.length ; i++) {
+//            if(map.containsKey(nums[i])) {
+//                map.put(nums[i],map.get(nums[i])+1);
+//            } else {
+//                map.put(nums[i],1);
+//            }
+//            if(map.get(nums[i])>nums.length/2) {
+//                return nums[i];
+//            }
+//        }
+//        return Integer.MIN_VALUE;
+
 
     }
 

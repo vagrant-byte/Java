@@ -168,4 +168,48 @@ public class ListNode{
         }
         return newHead.next;
     }
+    //回文链表
+    public boolean isPalindrome(ListNode head) {
+        if(head==null) {
+            return false;
+        }
+        ListNode fast=head;
+        ListNode slow=head;
+        while (fast!=null&&fast.next!=null) {
+            fast=fast.next.next;
+            slow=slow.next;
+        }
+        ListNode cur=slow.next;
+        while (cur!=null) {
+            ListNode curNext=cur.next;
+            cur.next=slow;
+            slow=cur;
+            cur=curNext;
+        }
+        while (head!=slow) {
+            if(head.val!=slow.val) {
+                return false;
+            }
+            if(head.next==slow) {
+                return true;
+            }
+            head=head.next;
+            slow=slow.next;
+        }
+        return true;
+    }
+    //两两交换链表中的节点
+    public ListNode swapPairs(ListNode head) {
+        if(head==null||head.next==null) {
+            return head;
+        }
+        ListNode next=head.next;
+        head.next=swapPairs(next.next);
+        next.next=head;
+        return next;
+    }
+
+    public static void main(String[] args) {
+        System.out.println();
+    }
 }

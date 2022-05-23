@@ -208,8 +208,46 @@ public class ListNode{
         next.next=head;
         return next;
     }
-
-    public static void main(String[] args) {
-        System.out.println();
+    //反转链表II
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        ListNode newHead=new ListNode(-1);
+        newHead.next=head;
+        ListNode cur=newHead;
+        for(int i=1;i<left;i++) {
+            cur=cur.next;
+        }
+        head=cur.next;
+        for(int i=left;i<right;i++) {
+            ListNode curNext=head.next;
+            head.next=curNext.next;
+            curNext.next=cur.next;
+            cur.next=curNext;
+        }
+        return newHead.next;
+    }
+    //分割链表
+    public ListNode partition(ListNode head, int x) {
+        if(head==null) {
+            return null;
+        }
+        ListNode headA=new ListNode(-1);
+        ListNode curA=headA;
+        ListNode headB=new ListNode(-1);
+        ListNode curB=headB;
+        ListNode cur=head;
+        while(cur!=null) {
+            if(cur.val<x) {
+                curA.next=cur;
+                curA=curA.next;
+                cur=cur.next;
+            } else {
+                curB.next=cur;
+                curB=curB.next;
+                cur=cur.next;
+            }
+        }
+        curA.next=headB.next;
+        curB.next=null;
+        return headA.next;
     }
 }

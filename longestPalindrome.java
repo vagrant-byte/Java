@@ -1,26 +1,46 @@
+package 字符串;
+//最长回文子串
 public class longestPalindrome {
-    //最长回文子串
-    public String longestPalindrome(String s) {
-        String res="";//用来记录最长回文子串
-        for (int i = 0; i <s.length() ; i++) {
-            String s1=palindrome(s,i,i);
-            String s2=palindrome(s,i,i+1);
-            res=res.length()>s1.length()?res:s1;
-            res=res.length()>s2.length()?res:s2;
+    public static String longestPalindrome(String s) {
+        if(s.equals("")) {
+            return "";
         }
-        return res;
+        int len=s.length();
+        if(len==1) {
+            return s;
+        }
+        String origin=s;
+        StringBuffer stringBuffer=new StringBuffer(s);
+        String s1=stringBuffer.reverse().toString();
+        int end=0;
+        int maxLen=0;
+        int[][] dp=new int[len][len];
+        for (int i = 0; i <len ; i++) {
+            for (int j = 0; j <len ; j++) {
+                if(origin.charAt(i)==s1.charAt(j)) {
+                    if(i==0||j==0) {
+                        dp[i][j]=1;
+                    }else {
+                        dp[i][j]=dp[i-1][j-1]+1;
+                    }
+                }
+                if(maxLen<dp[i][j]) {
+                    int beforeRev = len - 1 - j;
+                    //"aacabdkacaa" 不判断的话这种情况有问题
+                    if (beforeRev + dp[i][j] - 1 == i) { //判断下标是否对应
+                        maxLen = dp[i][j];
+                        end = i;
+                    }
+                }
+            }
+        }
+        return s.substring(end-maxLen+1,end+1);
+
 
     }
 
-    private String palindrome(String s, int left, int right) {
-        while (left>=0&&right<=s.length()-1) {
-            if(s.charAt(left)==s.charAt(right)) {
-                left--;
-                right++;
-            } else {
-                break;
-            }
-        }
-        return s.substring(left+1,right);
+    public static void main(String[] args) {
+        String s="abbac";
+        System.out.println(longestPalindrome(s));
     }
 }

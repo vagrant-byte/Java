@@ -165,4 +165,95 @@ public class 二叉树相关练习 {
         int nodes=leftData.nodes+rightData.nodes+1;
         return new Info(height,nodes);
     }
+    //二叉树的最近公共祖先
+    //生成所有节点的父节点表,将p整条链上的父节点记在hashset中，当q的父节点第一次出现在set中即最近的公共祖先
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root==null) {
+            return root;
+        }
+        HashMap<TreeNode,TreeNode> map=new HashMap<>();
+        map.put(root,root);
+        process(root,map);
+        HashSet<TreeNode> set=new HashSet<>();
+        TreeNode cur=p;
+        while (cur!=map.get(cur)) {
+            set.add(cur);
+            cur=map.get(cur);
+        }
+        cur=q;
+        while (cur!=map.get(cur)) {
+            if(set.contains(cur)){
+                return cur;
+            }else {
+                cur=map.get(cur);
+            }
+        }
+        return root;
+    }
+    public void process(TreeNode head,HashMap<TreeNode,TreeNode> map) {
+        if(head==null) {
+            return;
+        }
+        map.put(head.left,head);
+        map.put(head.right,head);
+        process(head.left,map);
+        process(head.right,map);
+    }
+    //后继节点  有右子树为右子树的最左节点，无右子树是其左节点的父节点
+   /* public TreeNode getSucessorNode(TreeNode node) {
+        if(node==null) {
+            return node;
+        }
+        if(node.right!=null) {
+            //有右子树
+            return getLeftMost(node.right);
+        }else {
+            TreeNode parent=node.parent;
+            while (parent!=null&&parent.left!=node) {
+                node=parent;
+                parent=node.parent;
+            }
+            return parent;
+        }
+    }
+
+    private TreeNode getLeftMost(TreeNode node) {
+        if(node==null) {
+            return null;
+        }
+        while (node.left!=null) {
+            node=node.left;
+        }
+        return node;
+    }*/
+
+    //序列化和反序列化
+    public String serialize(TreeNode root) {
+        if(root==null) {
+            return "#_";
+        }
+        String res=root.val+"_";
+        res+=serialize(root.left);
+        res+=serialize(root.right);
+        return res;
+    }
+    public TreeNode deserialize(String data) {
+        String[] values=data.split("_");
+        Queue<String> queue=new LinkedList<>();
+        for(int i=0;i<values.length;i++) {
+            queue.add(values[i]);
+        }
+        //使用前序遍历将其取出
+        return reconPreOrder(queue);
+    }
+    public TreeNode reconPreOrder(Queue<String> queue) {
+        String value=queue.poll();
+        if(value.equals("#")) {
+            return null;
+        }
+        TreeNode head=new TreeNode(Integer.valueOf(value));
+        head.left=reconPreOrder(queue);
+        head.right=reconPreOrder(queue);
+        return head;
+    }
 }

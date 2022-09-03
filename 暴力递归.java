@@ -111,6 +111,82 @@ public class 暴力递归 {
         return Math.min(f(nums,i+1,j),f(nums,i,j-1));
     }
 
+    //解码方式
+    public int numDecodings(String s) {
+        if(s==null||s.length()==0) {
+            return 0;
+        }
+        char[] chars=s.toCharArray();
+        return process2(chars,0);
+
+    }
+
+    private int process2(char[] chars, int i) {
+        if(i==chars.length) {
+            //即构成一种正确的解码方式
+            return 1;
+        }
+        if(chars[i]=='0') {
+            //不能构造为正确的解码方式
+            return 0;
+        }
+        if(chars[i]=='1') {
+            //i自己作为单独的部分，后续有多少种方法
+            int res=process2(chars,i+1);
+            if(i+1<chars.length) {
+                //(i和i+1)作为单独的部分并且没有超过26，后续有多少种方法
+                res+=process2(chars,i+2);
+            }
+            return res;
+        }
+        if(chars[i]=='2') {
+            //i作为单独的部分
+            int res=process2(chars,i+1);
+            if(i+1<chars.length&&(chars[i+1]>='0'&&chars[i+1]<='6')) {
+                res+=process2(chars,i+2);
+            }
+            return res;
+        }
+        //其它情况，即当前值只能作为单独的部分被使用
+        return process2(chars,i+1);
+    }
+
+    //N皇后
+    public int totalNQueens(int n) {
+        if(n<1) {
+            return 0;
+        }
+        int[] record=new int[n];//record[i] 第i行的皇后放入第几列
+        return process3(0,record,n);
+    }
+
+    private int process3(int i, int[] record, int n) {
+        if(i==n) {
+            //最后1行就只有一种放法
+            return 1;
+        }
+        int res=0;
+        for (int j = 0; j <n ; j++) {
+            //遍历当前行的所有列
+            if(isValid(record,i,j)) {
+                //于i行前面的皇后不同行不同对角线
+                record[i]=j;
+                res+=process3(i+1,record,n);
+            }
+        }
+        return res;
+    }
+
+    private boolean isValid(int[] record, int i, int j) {
+        for (int k = 0; k <i ; k++) {
+            if(j==record[k]||Math.abs(record[k]-j)== Math.abs(i-k)) {
+                //j==record[k]表示同行，abs表示同对角线
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public static void main(String[] args) {
         String s="abc";

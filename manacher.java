@@ -48,38 +48,32 @@ public class manacher {
         }
         int R=-1;
         int c=-1;
+        int maxLen=0;
         for (int i = 0; i <res.length ; i++) {
-            int left=i-1;
-            int right=i+1;
+            int left=i;
+            int right=i;
             while (left>=0&&right<res.length&&res[left]==res[right]) {
                 left--;
                 right++;
             }
-            if(R<right&&right<res.length) {
+            if(right-i>maxLen) {
                 R=right;
                 c=i;
+                maxLen=R-i;
             }
         }
         int start=2*c-R+1;
         String s1="";
-        if(start>=0) {
-            for (int i = start; i <R ; i++) {
-                if(res[i]!='#') {
-                    s1+=res[i];
-                }
-            }
-        }else {
-            for (int i = 0; i <R ; i++) {
-                if(res[i]!='#') {
-                    s1+=res[i];
-                }
+        for (int i = start; i <R ; i++) {
+            if(res[i]!='#') {
+                s1+=res[i];
             }
         }
         return s1;
     }
 
     public static void main(String[] args) {
-        String s="bb";
+        String s="abb";
         String res=longestPalindrome(s);
         System.out.println(res);
     }

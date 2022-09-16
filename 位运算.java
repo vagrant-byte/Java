@@ -63,6 +63,10 @@ public class 位运算 {
     public boolean is2Power(int n) {
         return (n&(n-1))==0;
     }
+    public boolean isPowerOfTwo(int n) {
+        int tmp=n&(~n+1);
+        return (n&tmp)==n;
+    }
     public boolean is4Power(int n) {
         //                      01010101
         return (n&(n-1))==0&&(n&0x55555555)!=0;
@@ -81,8 +85,22 @@ public class 位运算 {
     public int negNum(int n) {
         return add(~n,1);
     }
+    //减
     public int minus(int a,int b) {
         return add(a,negNum(b));
+    }
+    //乘
+    public int multi(int a,int b) {
+        int res=0;
+        while (b!=0) {
+            if((b&1)!=0) {
+                res=add(res,a);
+            }
+            a<<=1;
+            b>>>=1;
+        }
+
+        return res;
     }
 
 }
